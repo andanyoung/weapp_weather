@@ -1,0 +1,92 @@
+<style lang="less">
+  #ct-header {
+    background-image: url(https://weather.andyoung.top/bg_20200409005007.png);
+    background-size: cover;
+    background-color: rgb(42, 60, 90);
+    height: 475px;
+    width: 100%;
+  }
+</style>
+
+<template>
+  <div class="container">
+    <div id="ct-header">
+    </div>
+  </div>
+</template>
+
+<script>
+  import wepy from '@wepy/core'
+  import eventHub from '../common/eventHub';
+  import {
+    mapState
+  } from '@wepy/x';
+  import store from '../store';
+  wepy.page({
+    store,
+    data: {
+      count: 0
+    },
+    methods: {
+      login() {
+        console.log('登录123。。！')
+        wx.login((res) => {
+          console.log(res)
+          if (res.code) {
+            console.log(res.code)
+            //发起网络请求
+            wx.request({
+              url: 'https://test.com/onLogin',
+              data: {
+                code: res.code
+              }
+            })
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
+        })
+      },
+      getWeatherInfo() {
+        wx.request({
+          url: 'https://weather.andyoung.top/weather/query/%E6%B5%99%E6%B1%9F/%E5%AE%81%E6%B3%A2/%E5%AE%81%E6%B5%B7',
+          data: {
+            code: ""
+          }
+        })
+      },
+      getLocation() {
+        //定位信息
+        wx.getLocation({
+          type: 'wgs84',
+          isHighAccuracy: false,
+          highAccuracyExpireTime: 10000,
+          success(res) {
+            const latitude = res.latitude
+            const longitude = res.longitude
+            const speed = res.speed
+            const accuracy = res.accuracy
+            console.log(res)
+          }
+        })
+      }
+    },
+    created() {
+      this.getLocation()
+      this.getWeatherInfo()
+      this.login();
+    }
+  });
+</script>
+
+<config>
+{
+    navigationBarTitleText: '每日天气预报',
+    usingComponents: {
+      panel: '~@/components/panel',
+      counter: '~counter',
+      list: '../components/list',
+      group: '../components/group',
+      "slide-view": "module:miniprogram-slide-view",
+    }
+}
+</config>

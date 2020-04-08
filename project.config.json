@@ -1,0 +1,17 @@
+{
+	"description": "天气预报",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false
+	},
+	"compileType": "miniprogram",
+	"appid": "wx9d42d5e21b7c84ab",
+	"projectname": "min_weather",
+	"miniprogramRoot": "weapp/",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"libVersion": "2.10.3",
+	"condition": {}
+}
