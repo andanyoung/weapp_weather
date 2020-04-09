@@ -1680,7 +1680,7 @@
           <ul id="ls-living1" class="page">
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_chuanyi_shushi"></i>
-                <p class="content">穿衣&nbsp;较舒适</p>
+                <p class="content">穿衣  较舒适</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">
@@ -1692,7 +1692,7 @@
             </li>
             <li class="item even">
               <div class="ct-sub"> <i class="icon icon_yusan"></i>
-                <p class="content">雨伞&nbsp;不带伞</p>
+                <p class="content">雨伞  不带伞</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">天气较好，您在出门的时候无须带雨伞。</div>
@@ -1700,7 +1700,7 @@
             </li>
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_ganmao"></i>
-                <p class="content">感冒&nbsp;少发</p>
+                <p class="content">感冒  少发</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">各项气象条件适宜，无明显降温过程，发生感冒机率较低。</div>
@@ -1708,7 +1708,7 @@
             </li>
             <li class="item even">
               <div class="ct-sub"> <i class="icon icon_xiche"></i>
-                <p class="content">洗车&nbsp;适宜</p>
+                <p class="content">洗车  适宜</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">适宜洗车，未来持续两天无雨天气较好，适合擦洗汽车，蓝天白云、风和日丽将伴您的车子连日洁净。</div>
@@ -1716,7 +1716,7 @@
             </li>
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_yundong"></i>
-                <p class="content">运动&nbsp;较适宜</p>
+                <p class="content">运动  较适宜</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">天气较好，但因风力稍强，户外可选择对风力要求不高的运动，推荐您进行室内运动。</div>
@@ -1724,7 +1724,7 @@
             </li>
             <li class="item even">
               <div class="ct-sub"> <i class="icon icon_fangsai"></i>
-                <p class="content">防晒&nbsp;极强</p>
+                <p class="content">防晒  极强</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">紫外辐射极强，应特别加强防护，建议涂擦SPF20以上，PA++的防晒护肤品，并随时补涂。</div>
@@ -1734,7 +1734,7 @@
           <ul id="ls-living2" class="page">
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_diaoyu"></i>
-                <p class="content">钓鱼&nbsp;较适宜</p>
+                <p class="content">钓鱼  较适宜</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">
@@ -1746,7 +1746,7 @@
             </li>
             <li class="item even">
               <div class="ct-sub"> <i class="icon icon_lvyou"></i>
-                <p class="content">旅游&nbsp;适宜</p>
+                <p class="content">旅游  适宜</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">天气较好，风稍大，但温度适宜，是个好天气哦。适宜旅游，您可以尽情地享受大自然的无限风光。</div>
@@ -1754,7 +1754,7 @@
             </li>
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_jiaotong"></i>
-                <p class="content">交通&nbsp;良好</p>
+                <p class="content">交通  良好</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">天气较好，路面干燥，交通气象条件良好，车辆可以正常行驶。</div>
@@ -1762,7 +1762,7 @@
             </li>
             <li class="item even">
               <div class="ct-sub"> <i class="icon icon_wurankuosan"></i>
-                <p class="content">空气污染扩散条件&nbsp;良</p>
+                <p class="content">空气污染扩散条件  良</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">气象条件有利于空气污染物稀释、扩散和清除。</div>
@@ -1770,7 +1770,7 @@
             </li>
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_shushidu"></i>
-                <p class="content">舒适度&nbsp;舒适</p>
+                <p class="content">舒适度  舒适</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">白天温度适宜，风力不大，相信您在这样的天气条件下，应会感到比较清爽和舒适。</div>
@@ -1778,7 +1778,7 @@
             </li>
             <li class="item even">
               <div class="ct-sub"> <i class="icon icon_liangshai"></i>
-                <p class="content">晾晒&nbsp;适宜</p>
+                <p class="content">晾晒  适宜</p>
               </div>
               <div class="ct-detail">
                 <div class="detail">天气不错，适宜晾晒。赶紧把久未见阳光的衣物搬出来吸收一下太阳的味道吧！</div>
