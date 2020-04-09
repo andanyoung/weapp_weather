@@ -1,48 +1,1836 @@
 <style lang="less">
-  #ct-header {
+  #ct-content {
+    width: 100%;
+  }
+  #ct-current {
     background-image: url(https://weather.andyoung.top/bg_20200409005007.png);
     background-size: cover;
     background-color: rgb(42, 60, 90);
-    height: 475px;
+    height: 360px;
     width: 100%;
+    padding-top: 90px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
+  #ct-current #ct-current-weather {
+    position: absolute;
+    top: 90px;
+    right: 16px;
+    width: 134px;
+    height: 134px
+  }
+  #ct-current #ct-current-weather .icon {
+    width: 134px;
+    height: 134px
+  }
+  #ct-current #txt-pub-time {
+    font-size: 14px;
+    color: #fff;
+    opacity: .6;
+    height: 19px;
+    line-height: 19px;
+    margin-bottom: 20px
+  }
+  #ct-current #ct-main {
+    height: 86px;
+    margin-bottom: 28px;
+    vertical-align: bottom;
+    font-size: 0
+  }
+  #ct-current #ct-main #txt-temperature {
+    display: inline-block;
+    font-size: 86px;
+    color: #fff;
+    height: 86px;
+    line-height: 86px
+  }
+  #ct-current #ct-main #txt-name {
+    display: inline-block;
+    font-size: 28px;
+    color: #fff;
+    line-height: 45px;
+    height: 45px;
+    margin-right: 24px
+  }
+  #ct-current #ct-aqi {
+    display: inline-block;
+    position: relative;
+    margin-right: 24px;
+    cursor: pointer
+  }
+  #ct-current #ct-aqi:hover .popwindow {
+    display: block
+  }
+  #ct-current .info-aqi {
+    border-radius: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    color: #fff;
+    padding: 3px 10px 3px 3px
+  }
+  #ct-current .info-aqi:before {
+    content: '';
+    float: left;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 10px
+  }
+  #ct-current .air-level1 .header {
+    background-color: #a3d765
+  }
+  #ct-current .air-level1 .header:before {
+    border-bottom-color: #a3d765
+  }
+  #ct-current .air-level1 .info-aqi {
+    background-color: #a3d765
+  }
+  #ct-current .air-level1 .info-aqi:before {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px 0;
+    background-size: 234px 212px!important
+  }
+  #ct-current .air-level2 .header {
+    background-color: #f0cc35
+  }
+  #ct-current .air-level2 .header:before {
+    border-bottom-color: #f0cc35
+  }
+  #ct-current .air-level2 .info-aqi {
+    background-color: #f0cc35
+  }
+  #ct-current .air-level2 .info-aqi:before {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -21px;
+    background-size: 234px 212px!important
+  }
+  #ct-current .air-level3 .header {
+    background-color: #f1ab62
+  }
+  #ct-current .air-level3 .header:before {
+    border-bottom-color: #f1ab62
+  }
+  #ct-current .air-level3 .info-aqi {
+    background-color: #f1ab62
+  }
+  #ct-current .air-level3 .info-aqi:before {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -42px;
+    background-size: 234px 212px!important
+  }
+  #ct-current .air-level4 .header {
+    background-color: #ef7f77
+  }
+  #ct-current .air-level4 .header:before {
+    border-bottom-color: #ef7f77
+  }
+  #ct-current .air-level4 .info-aqi {
+    background-color: #ef7f77
+  }
+  #ct-current .air-level4 .info-aqi:before {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -105px;
+    background-size: 234px 212px!important
+  }
+  #ct-current .air-level5 .header {
+    background-color: #b28ccb
+  }
+  #ct-current .air-level5 .header:before {
+    border-bottom-color: #b28ccb
+  }
+  #ct-current .air-level5 .info-aqi {
+    background-color: #b28ccb
+  }
+  #ct-current .air-level5 .info-aqi:before {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -84px;
+    background-size: 234px 212px!important
+  }
+  #ct-current .air-level6 .header {
+    background-color: #ad788a
+  }
+  #ct-current .air-level6 .header:before {
+    border-bottom-color: #ad788a
+  }
+  #ct-current .air-level6 .info-aqi {
+    background-color: #ad788a
+  }
+  #ct-current .air-level6 .info-aqi:before {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -63px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-main #ls-warning {
+    display: inline-block
+  }
+  #ct-current #ct-main .tag {
+    border-radius: 18px;
+    font-size: 14px;
+    color: #fff;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 12px;
+    margin-right: 24px;
+    cursor: pointer;
+    position: relative
+  }
+  #ct-current #ct-main .tag:hover .warning-window {
+    display: block
+  }
+  #ct-current #ct-main .tag.level01 {
+    background-color: #86c5f7
+  }
+  #ct-current #ct-main .tag.level01 .header {
+    background-color: #86c5f7
+  }
+  #ct-current #ct-main .tag.level01 .header:before {
+    border-bottom-color: #86c5f7
+  }
+  #ct-current #ct-main .tag.level02 {
+    background-color: #f5d271
+  }
+  #ct-current #ct-main .tag.level02 .header {
+    background-color: #f5d271
+  }
+  #ct-current #ct-main .tag.level02 .header:before {
+    border-bottom-color: #f5d271
+  }
+  #ct-current #ct-main .tag.level03 {
+    background-color: #ef8c6b
+  }
+  #ct-current #ct-main .tag.level03 .header {
+    background-color: #ef8c6b
+  }
+  #ct-current #ct-main .tag.level03 .header:before {
+    border-bottom-color: #ef8c6b
+  }
+  #ct-current #ct-main .tag.level04 {
+    background-color: #ec807c
+  }
+  #ct-current #ct-main .tag.level04 .header {
+    background-color: #ec807c
+  }
+  #ct-current #ct-main .tag.level04 .header:before {
+    border-bottom-color: #ec807c
+  }
+  #ct-current #ct-other {
+    vertical-align: middle;
+    font-size: 0;
+    margin-bottom: 28px
+  }
+  #ct-current #ct-other .item {
+    margin-top: 8px;
+    margin-right: 42px;
+    color: #fff;
+    height: 20px;
+    line-height: 20px;
+    font-size: 0
+  }
+  #ct-current #ct-other #info-limit {
+    visibility: hidden
+  }
+  #ct-current #ct-other #info-limit.show {
+    visibility: visible
+  }
+  #ct-current #ct-other .icon {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background-size: 20px 20px;
+    vertical-align: middle;
+    margin-right: 10px
+  }
+  #ct-current #ct-other .txt {
+    display: inline-block;
+    font-size: 18px;
+    vertical-align: middle
+  }
+  #ct-current #ct-other .wind-0 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -190px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-1 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -167px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-2 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -144px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-3 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px -73px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-4 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -98px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-5 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -75px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-6 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px -50px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-7 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -29px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-8 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px -165px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other .wind-9 {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px -142px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other #icon-humidity {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px -119px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other #icon-kPa {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px -96px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-other #icon-limit {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -52px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-current #ct-tips {
+    letter-spacing: 0
+  }
+  #ct-current #ct-tips #txt-tips {
+    vertical-align: middle;
+    font-size: 20px;
+    color: #fff;
+    line-height: 20px;
+    height: 20px;
+    display: inline-block
+  }
+  #ct-current #ct-tips #txt-tips:before {
+    content: '';
+    float: left;
+    height: 11px;
+    width: 11px;
+    margin-right: 13px;
+    background: #fff;
+    border-radius: 50%;
+    margin-top: 5px
+  }
+  #ct-current #ct-tips #btn-tip-switch {
+    display: none;
+    margin-left: 15px;
+    vertical-align: middle;
+    height: 20px;
+    width: 20px;
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -121px -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-hours {
+    display: inline-block;
+    height: 143px;
+    margin: 20px auto 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, .08);
+    width: 90%;
+    padding: 16px;
+    overflow: hidden
+  }
+  #ct-hours #title {
+    font-size: 18px;
+    color: #344665;
+    height: 21px;
+    line-height: 21px;
+    margin-bottom: 22px;
+    float: left;
+    margin-right: 10px
+  }
+  #ct-hours #title:before {
+    content: '';
+    float: left;
+    height: 7px;
+    width: 7px;
+    overflow: hidden;
+    margin-right: 10px;
+    background: #344665;
+    border-radius: 50%;
+    margin-top: 8px
+  }
+  #ct-hours #txt-source {
+    float: left;
+    font-size: 12px;
+    color: #8a9baf;
+    height: 21px;
+    line-height: 21px
+  }
+  #ct-hours .ct-page-ctrl {
+    float: right
+  }
+  #ct-hours #ct-weather {
+    clear: both;
+    width: 4800px;
+    -webkit-transition: margin 1s ease-in-out;
+    -moz-transition: margin 1s ease-in-out;
+    -ms-transition: margin 1s ease-in-out;
+    -o-transition: margin 1s ease-in-out;
+    transition: margin 1s ease-in-out
+  }
+  #ct-hours #ls-weather-hour .item {
+    float: left;
+    width: 40px;
+    margin-right: 60px;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: right;
+    position: relative
+  }
+  #ct-hours #ls-weather-hour .item .txt-time {
+    font-size: 14px;
+    color: #8a9baf;
+    line-height: 14px;
+    height: 14px;
+    margin-bottom: 24px
+  }
+  #ct-hours #ls-weather-hour .item .icon {
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin: 0 auto;
+    margin-bottom: 18px
+  }
+  #ct-hours #ls-weather-hour .item .txt-degree {
+    font-size: 18px;
+    color: #384c78;
+    line-height: 14px
+  }
+  #ct-7-days {
+    float: left;
+    width: 740px;
+    height: 492px;
+    padding: 20px 0 0;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, .08)
+  }
+  #ct-7-days #title {
+    font-size: 18px;
+    color: #344665;
+    line-height: 25px;
+    height: 25px;
+    margin-bottom: 18px;
+    margin-left: 30px
+  }
+  #ct-7-days #title:before {
+    content: '';
+    float: left;
+    height: 7px;
+    width: 7px;
+    overflow: hidden;
+    margin-right: 10px;
+    background: #344665;
+    border-radius: 50%;
+    margin-top: 8px
+  }
+  #ct-7-days #link-15 {
+    float: right;
+    background: #f8faff;
+    border: 1px solid #dce5f0;
+    border-radius: 37px;
+    font-size: 12px;
+    color: #384c78;
+    line-height: 26px;
+    height: 26px;
+    width: 100px;
+    text-align: center;
+    margin-right: 30px
+  }
+  #ct-7-days #link-15:hover {
+    background: #eef0f6;
+    border: 1px solid #e9e9e9;
+    color: #868686
+  }
+  #ct-7-days #ct-weather {
+    overflow: hidden;
+    position: relative
+  }
+  #ct-7-days .item {
+    width: 92px;
+    text-align: center;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: right;
+    position: relative;
+    padding: 11px 0 25px
+  }
+  #ct-7-days .item.last {
+    margin-right: 0
+  }
+  #ct-7-days .item.first .day {
+    color: #c2c2c2
+  }
+  #ct-7-days .item.first .date {
+    color: #c2c2c2
+  }
+  #ct-7-days .item.first .weather {
+    color: #c2c2c2
+  }
+  #ct-7-days .item.first .icon {
+    opacity: .3
+  }
+  #ct-7-days .item.first .wind {
+    color: #c2c2c2
+  }
+  #ct-7-days .item.second {
+    background: #f8faff
+  }
+  #ct-7-days .item .day {
+    font-size: 14px;
+    color: #384c78;
+    margin-bottom: 12px;
+    height: 14px;
+    line-height: 14px
+  }
+  #ct-7-days .item .date {
+    font-size: 12px;
+    color: #8a9baf;
+    margin-bottom: 30px;
+    height: 12px;
+    line-height: 12px
+  }
+  #ct-7-days .item .ct-daytime .weather {
+    margin-bottom: 20px
+  }
+  #ct-7-days .item .ct-night {
+    margin-top: 174px;
+    margin-bottom: 24px
+  }
+  #ct-7-days .item .ct-night .icon {
+    margin-bottom: 20px
+  }
+  #ct-7-days .item .icon {
+    display: inline-block;
+    height: 30px;
+    width: 30px
+  }
+  #ct-7-days .item .weather {
+    font-size: 14px;
+    color: #384c78;
+    line-height: 14px;
+    height: 14px
+  }
+  #ct-7-days .item .wind {
+    font-size: 12px;
+    color: #8a9baf;
+    line-height: 12px;
+    height: 12px
+  }
+  #ct-7-days #chart-days {
+    width: 740px;
+    height: 174px;
+    position: absolute;
+    top: 145px
+  }
+  #ct-living-index {
+    width: 90%;
+  }
+  #ct-living-index #title {
+    float: left;
+    font-size: 18px;
+    color: #344665;
+    height: 21px;
+    line-height: 21px;
+    margin-bottom: 6px;
+    margin-top: 6px
+  }
+  #ct-living-index #title:before {
+    content: '';
+    float: left;
+    height: 7px;
+    width: 7px;
+    overflow: hidden;
+    margin-right: 10px;
+    background: #344665;
+    border-radius: 50%;
+    margin-top: 8px
+  }
+  #ct-living-index .ct-page-ctrl {
+    float: right;
+    margin-top: 7px
+  }
+  #ct-living-index #ct-pages {
+    clear: both;
+    overflow: hidden;
+    position: relative;
+    width: 440px;
+    height: 470px;
+    margin-left: -5px;
+    padding-top: 18px
+  }
+  #ct-living-index #ct-pages .page {
+    float: left;
+    width: 440px
+  }
+  #ct-living-index #ct-pages .item {
+    height: 140px;
+    width: 40%;
+    background: #fff;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, .08);
+    border-radius: 10px;
+    float: left;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-left: 10px
+  }
+  #ct-living-index #ct-pages .item.odd {
+  }
+  #ct-living-index #ct-pages .item:hover .ct-sub {
+    margin-top: -140px
+  }
+  #ct-living-index #ct-pages .ct-sub {
+    height: 102px;
+    width: 100%;
+    padding-top: 38px;
+    -webkit-transition: margin .5s ease-in-out;
+    -moz-transition: margin .5s ease-in-out;
+    -ms-transition: margin .5s ease-in-out;
+    -o-transition: margin .5s ease-in-out;
+    transition: margin .5s ease-in-out
+  }
+  #ct-living-index #ct-pages .icon {
+    height: 34px;
+    width: 34px;
+    display: block;
+    margin: 0 auto 12px
+  }
+  #ct-living-index #ct-pages .icon_yusan {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: 0 -154px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_chuanyi {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -37px -154px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_chuanyi_hot {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -74px -117px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_chuanyi_shushi {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -80px -37px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_chuanyi_jiaoleng {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -80px 0;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_chuanyi_cool {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: 0 -80px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_fangsai {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: 0 -43px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_ganmao {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -74px -154px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_yundong {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -37px -43px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_xiche {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -154px -111px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_diaoyu {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -154px -74px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_jiaotong {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -154px -37px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_wurankuosan {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -154px 0;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_huazhuang {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -111px -117px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_zhongshu {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -43px 0;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_shushidu {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -37px -117px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_xinqing {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: 0 -117px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_lvyou {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -117px -74px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_ziwaixian {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -117px -37px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_guomin {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -117px 0;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_liangshai {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -74px -80px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .icon_huangli {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -37px -80px;
+    background-size: 234px 212px!important
+  }
+  #ct-living-index #ct-pages .content {
+    font-size: 16px;
+    color: #384c78;
+    line-height: 22px
+  }
+  #ct-living-index #ct-pages .ct-detail {
+    height: 100%;
+    width: 160px;
+    padding: 0 20px;
+    display: table;
+    overflow: hidden
+  }
+  #ct-living-index #ct-pages .ct-detail .detail {
+    vertical-align: middle;
+    text-align: left;
+    text-align: justify;
+    text-justify: inter-ideograph;
+    display: table-cell;
+    font-size: 13px;
+    color: #384c78;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical
+  }
+  #ct-information {
+    float: left;
+    width: 810px
+  }
+  #ct-information #ls-info .item {
+    height: 154px;
+    border-left: 4px solid #d3d8d8;
+    margin-left: 2px;
+    padding-bottom: 18px
+  }
+  #ct-information #ls-info .item.last {
+    border-left-color: #f6f6f6
+  }
+  #ct-information #ls-info .item a:hover {
+    text-decoration: none
+  }
+  #ct-information #ls-info .item:hover .ct-detail {
+    background-color: #efefef
+  }
+  #ct-information #ls-info .item:hover .preview {
+    transform: scale(1.05, 1.05);
+    -webkit-transform: scale(1.05, 1.05)
+  }
+  #ct-information #ls-info .item .time {
+    font-size: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-family: PingFang;
+    color: #888;
+    margin-bottom: 10px;
+    margin-left: -10px;
+    text-indent: 10px
+  }
+  #ct-information #ls-info .item .time:before {
+    content: '';
+    float: left;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #a1abab;
+    margin-right: 12px
+  }
+  #ct-information #ls-info .item .ct-detail {
+    margin-left: 29px;
+    border-width: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 774px;
+    height: 126px;
+    overflow: hidden
+  }
+  #ct-information #ls-info .item .ct-detail .ct-img {
+    float: left;
+    overflow: hidden
+  }
+  #ct-information #ls-info .item .ct-detail .ct-img .preview {
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    width: 230px;
+    height: 126px;
+    -webkit-transition: -webkit-transform .8s
+  }
+  #ct-information #ls-info .item .ct-detail .ct-info {
+    margin: 30px 30px 20px 260px
+  }
+  #ct-information #ls-info .item .ct-detail .title {
+    font-size: 20px;
+    color: #333;
+    line-height: 22px;
+    height: 60px;
+    margin-top: 30px
+  }
+  #ct-information #ls-info .item .ct-detail .copyright {
+    font-size: 16px;
+    font-family: PingFang;
+    color: #a1abab;
+    line-height: 16px
+  }
+  #right-sec {
+    float: right;
+    width: 398px
+  }
+  #ct-videos #ls-videos {
+    margin-top: 21px
+  }
+  #ct-videos #ls-videos .item {
+    width: 192px;
+    height: 169px;
+    float: left;
+    margin-bottom: 16px;
+    position: relative
+  }
+  #ct-videos #ls-videos .item:hover .preview {
+    transform: scale(1.05, 1.05);
+    -webkit-transform: scale(1.05, 1.05)
+  }
+  #ct-videos #ls-videos .item .ct-preview {
+    width: 192px;
+    height: 115px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    overflow: hidden
+  }
+  #ct-videos #ls-videos .item .ct-preview .preview {
+    width: 192px;
+    height: 115px;
+    -webkit-transition: -webkit-transform .8s
+  }
+  #ct-videos #ls-videos .item .ct-preview:after {
+    content: '';
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    left: 50%;
+    margin-left: -20px;
+    top: 37.5px;
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: 0 0;
+    background-size: 234px 212px!important
+  }
+  #ct-videos #ls-videos .item .title {
+    font-size: 16px;
+    color: #333;
+    line-height: 21px;
+    width: 192px;
+    height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical
+  }
+
+  .popwindow {
+    position: absolute;
+    display: none;
+    z-index: 2;
+    height: 169px;
+    width: 276px;
+    top: 36px;
+    left: 50%;
+    margin-left: -38px
+  }
+  .popwindow .header {
+    border-radius: 6px 6px 0 0;
+    height: 42px;
+    line-height: 42px;
+    font-size: 18px;
+    color: #fff;
+    text-align: center
+  }
+  .popwindow .header:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    top: -7px;
+    left: 40px;
+    margin-left: -7px
+  }
+  .popwindow .detail {
+    min-height: 126px;
+    overflow-y: hidden;
+    padding: 0 10px 10px 10px;
+    margin: 0 -10px
+  }
+  .popwindow .detail .inner {
+    background: #fff;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .1)
+  }
+  .popwindow .val {
+    font-size: 14px;
+    color: #555;
+    line-height: 24px;
+    margin-top: 30%;
+  }
+  .popwindow .titl {
+    font-size: 12px;
+    color: #9f9f9f;
+    line-height: 24px
+  }
+  #air-window #tb-detail {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #air-window #tb-detail>view {
+    border-bottom: 1px solid #efefef;
+    width: 90px;
+    height: 90px;
+  }
+  #air-window #tb-detail .nth-2 {
+    border-left: 1px solid #efefef;
+    border-right: 1px solid #efefef
+  }
+  .warning-window .detail p {
+    padding: 14px 20px 5px;
+    font-size: 14px;
+    color: #555;
+    line-height: 24px
+  }
+  #ct-search {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    text-align: left;
+    height: 30px;
+    width: 277px;
+    font-size: 14px;
+    color: #555
+  }
+  #ct-search #i-location {
+    font-family: "Microsoft Yahei";
+    border: none;
+    background: rgba(255, 255, 255, .2);
+    border-radius: 49px;
+    padding: 5px 13px;
+    width: 251px;
+    height: 20px;
+    color: rgba(255, 255, 255, .7);
+    line-height: 20px;
+    font-size: 14px
+  }
+  #ct-search #i-location:focus {
+    outline: 0
+  }
+  #ct-search .tit {
+    font-size: 12px;
+    color: #9f9f9f;
+    height: 12px;
+    line-height: 12px;
+    margin-bottom: 8px;
+    margin-top: 2px;
+    clear: both;
+    padding: 0 20px
+  }
+  #ct-search #tit-cur {
+    display: none
+  }
+  #ct-search #ct-hot-city {
+    display: none;
+    background: #fff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .15);
+    border-radius: 5px;
+    margin-top: 4px;
+    padding: 20px 0 10px
+  }
+  #ct-search #ct-hot-city #cur-location {
+    display: none;
+    height: 14px;
+    line-height: 14px;
+    cursor: pointer;
+    margin-bottom: 24px;
+    float: left;
+    margin-left: 20px
+  }
+  #ct-search #ct-hot-city #cur-location:hover {
+    background: #f3f3f3
+  }
+  #ct-search #ct-hot-city #cur-location:after {
+    content: '';
+    vertical-align: middle;
+    float: right;
+    height: 11px;
+    width: 10px;
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -163px;
+    background-size: 234px 212px!important;
+    margin-left: 6px;
+    margin-top: 1px
+  }
+  #ct-search #ct-hot-city #ct-history {
+    clear: both;
+    margin-bottom: 14px
+  }
+  #ct-search #ct-hot-city #ct-history .tit {
+    float: left
+  }
+  #ct-search #ct-hot-city #ct-history #btn-clean {
+    float: right;
+    width: 40px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 9px;
+    background-color: #f0f0f0;
+    font-size: 12px;
+    color: #868686;
+    cursor: pointer;
+    margin-right: 20px
+  }
+  #ct-search #ct-hot-city #ct-history #ls-history {
+    clear: both
+  }
+  #ct-search #ct-hot-city .ls-city {
+    clear: both;
+    margin: 0 2px 0 16px
+  }
+  #ct-search #ct-hot-city .ls-city:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0
+  }
+  #ct-search #ct-hot-city .ls-city .opts {
+    float: left;
+    width: 25%;
+    height: 28px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+  #ct-search #ct-hot-city .ls-city .opts span {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    padding: 0 4px
+  }
+  #ct-search #ct-hot-city .ls-city .opts:hover span {
+    background: #f3f3f3;
+    border-radius: 2px
+  }
+  #ct-search #ls-match {
+    display: none;
+    top: 28px;
+    overflow: auto;
+    background: #fff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .15);
+    border-radius: 5px;
+    max-height: 210px;
+    margin-top: 4px;
+    padding: 8px
+  }
+  #ct-search #ls-match em {
+    color: #448aff;
+    font-style: normal
+  }
+  #ct-search #ls-match .item {
+    padding: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #555;
+    height: 22px;
+    line-height: 22px
+  }
+  #ct-search #ls-match .item.tips {
+    color: #888;
+    border-bottom: 0;
+    text-align: center;
+    margin-left: 0
+  }
+   ::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, .7)
+  }
+   :-moz-placeholder {
+    color: rgba(255, 255, 255, .7)
+  }
+   ::-moz-placeholder {
+    color: rgba(255, 255, 255, .7)
+  }
+   :-ms-input-placeholder {
+    color: rgba(255, 255, 255, .7)
+  }
+  #tips-attention-size {
+    display: none;
+    position: absolute;
+    right: 229px;
+    top: 51px;
+    font-size: 12px;
+    color: #9f9f9f;
+    height: 27px;
+    line-height: 27px;
+    width: 138px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+    border-radius: 5px
+  }
+  #ct-attention {
+    position: absolute;
+    display: none;
+    width: 418px;
+    min-height: 86px;
+    background: #fff;
+    left: 8px;
+    top: 38px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    padding: 17px 0
+  }
+  #ct-attention #titl {
+    text-align: left;
+    font-size: 12px;
+    color: #9f9f9f;
+    height: 17px;
+    line-height: 17px;
+    margin-left: 20px
+  }
+  #ct-attention #tips-attention {
+    font-size: 14px;
+    color: #9f9f9f;
+    text-align: center;
+    line-height: 20px
+  }
+  #ct-attention #ls-attention {
+    text-align: left;
+    margin-top: 15px
+  }
+  #ct-attention #ls-attention .city {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #555;
+    letter-spacing: 0
+  }
+  #ct-attention #ls-attention .city:hover {
+    background-color: #f4f4f4
+  }
+  #ct-attention #ls-attention .city:hover .btn {
+    display: inline-block;
+    vertical-align: middle
+  }
+  #ct-attention #ls-attention .city:hover .mark {
+    display: none
+  }
+  #ct-attention #ls-attention .city .ct-location {
+    float: left;
+    width: 146px
+  }
+  #ct-attention #ls-attention .city .location {
+    display: inline-block
+  }
+  #ct-attention #ls-attention .city .mark {
+    display: inline-block;
+    border: 1px solid #63b6f6;
+    border-radius: 3px;
+    margin-left: 5px;
+    font-size: 12px;
+    color: #63b6f6;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    padding: 0 4px
+  }
+  #ct-attention #ls-attention .city .btn {
+    display: none
+  }
+  #ct-attention #ls-attention .city .weather {
+    display: inline-block;
+    width: 116px
+  }
+  #ct-attention #ls-attention .city .icon {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle
+  }
+  #ct-attention #ls-attention .city .temperature {
+    display: inline-block;
+    width: 66px;
+    text-align: right
+  }
+  #ct-attention #ls-attention .city .btn-cancel,
+  #ct-attention #ls-attention .city .btn-set-default {
+    font-size: 12px;
+    color: #777;
+    background: #f7f7f7;
+    border: 1px solid #cecece;
+    border-radius: 4px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 4px;
+    margin-left: 5px
+  }
+  #ct-attention #ls-attention .city .btn-delete {
+    height: 15px;
+    width: 15px;
+    margin-top: -3px;
+    margin-left: 12px;
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -145px;
+    background-size: 234px 212px!important
+  }
+  .ct-page-ctrl .btn {
+    float: left;
+    z-index: 2;
+    width: 22px;
+    height: 22px
+  }
+  .ct-page-ctrl #btn-prev {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -136px -154px;
+    background-size: 234px 212px!important;
+    margin-right: 8px
+  }
+  .ct-page-ctrl #btn-prev:hover {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -161px -154px;
+    background-size: 234px 212px!important
+  }
+  .ct-page-ctrl #btn-next {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px 0;
+    background-size: 234px 212px!important
+  }
+  .ct-page-ctrl #btn-next:hover {
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -191px -25px;
+    background-size: 234px 212px!important
+  }
+  #ct-footer {
+    height: 264px;
+    background: #3a4570;
+    margin-top: 40px
+  }
+  #ct-footer #ct-sponsors {
+    text-align: center;
+    padding: 50px 0 35px
+  }
+  #ct-footer #ct-sponsors img {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 31px
+  }
+  #ct-footer .tcopyright {
+    color: #fff;
+    padding: 0
+  }
+  #ct-footer .tcopyright div {
+    margin-bottom: 15px
+  }
+  #ct-footer .tcopyright a {
+    color: #fff
+  }
+  #ct-pop-mobile {
+    width: 46px;
+    position: fixed;
+    left: 50%;
+    top: 541px;
+    margin-left: 660px
+  }
+  #ct-pop-mobile .item {
+    width: 46px;
+    height: 46px;
+    position: relative;
+    background: #edf0f4;
+    border-radius: 8px;
+    margin-top: 6px
+  }
+  #ct-pop-mobile .item:hover {
+    background: #dfe3e8;
+    cursor: pointer
+  }
+  #ct-pop-mobile .item:hover .ct-inner {
+    display: block
+  }
+  #ct-pop-mobile .item span {
+    display: inline-block;
+    font-size: 0;
+    text-indent: -9999px
+  }
+  #ct-pop-mobile .ct-xcx span {
+    width: 22px;
+    height: 22px;
+    margin: 12px 0 0 12px;
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -111px -154px;
+    background-size: 234px 212px!important
+  }
+  #ct-pop-mobile .ct-weixin span {
+    width: 26px;
+    height: 21px;
+    margin: 12px 0 0 10px;
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: 0 -191px;
+    background-size: 234px 212px!important
+  }
+  #ct-pop-mobile .ct-inner {
+    width: 127px;
+    height: 147px;
+    padding: 6px;
+    background: #dfe3e8;
+    border-radius: 6px;
+    position: absolute;
+    left: -150px;
+    bottom: 0;
+    text-align: center;
+    font-size: 12px;
+    color: #303b4d;
+    cursor: default;
+    display: none
+  }
+  #ct-pop-mobile .ct-inner:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    right: -17px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: 10px;
+    border-style: dashed dashed dashed solid;
+    border-color: transparent transparent transparent #dfe3e8
+  }
+  #ct-pop-mobile .ct-inner img {
+    width: 127px;
+    height: 124px;
+    margin-top: 6px
+  }
+  @media screen and (max-width:1400px) {
+    #ct-pop-mobile {
+      display: none
+    }
+  }
+  input::-webkit-input-placeholder {
+    font-family: "Microsoft Yahei"
+  }
+  input:-ms-input-placeholder {
+    font-family: "Microsoft Yahei"
+  }
+  input:-moz-placeholder {
+    font-family: "Microsoft Yahei"
+  }
+  input::-moz-placeholder {
+    font-family: "Microsoft Yahei"
+  }
+  /*  |xGv00|cd4f17932c14efbe79ab95a1692202ca */
 </style>
 
 <template>
   <div class="container">
-    <div id="ct-header">
+    <div id="ct-content">
+      <div id="ct-current">
+        <p id="txt-pub-time">中央气象台 21:49发布</p>
+        <div id="ct-main">
+          <p id="txt-temperature">14°</p>
+          <p id="txt-name">晴</p>
+          <ul id="ls-warning"></ul>
+        </div>
+        <div id="ct-aqi" class="air-level2">
+          <p class="info-aqi">60 良</p>
+          <div id="air-window" class="popwindow">
+            <div class="header">空气质量指数 60 良</div>
+            <div class="detail">
+              <div class="inner">
+                <div id="tb-detail">
+                  <td>
+                    <p class="val">39</p>
+                    <p class="titl">PM2.5</p>
+                  </td>
+                  <td class="nth-2">
+                    <p class="val">70</p>
+                    <p class="titl">PM10</p>
+                  </td>
+                  <td>
+                    <p class="val">8</p>
+                    <p class="titl">SO2</p>
+                  </td>
+                  <td>
+                    <p class="val">31</p>
+                    <p class="titl">NO2</p>
+                  </td>
+                  <td class="nth-2">
+                    <p class="val">136</p>
+                    <p class="titl">O3</p>
+                  </td>
+                  <td>
+                    <p class="val">0.7</p>
+                    <p class="titl">CO</p>
+                  </td>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="ct-other">
+          <p class="item">
+            <i class="icon wind-2" id="icon-wind"></i> <span class="txt" id="txt-wind">东风  2级</span></p>
+          <p class="item"><i class="icon" id="icon-humidity"></i> <span class="txt" id="txt-humidity">湿度  72%</span></p>
+          <p class="item"><i class="icon" id="icon-kPa"></i> <span class="txt" id="txt-kPa">气压  1021hPa</span></p>
+        </div>
+        <div id="ct-tips">
+          <p id="txt-tips">现在的温度比较凉爽~</p>
+          <a href="javascript:;" id="btn-tip-switch" style="display: inline-block;"></a>
+        </div>
+        <div id="ct-current-weather"><img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/night/00.png"></div>
+      </div>
     </div>
+    <!--ct-hour -->
+    <div class="container" id="ct-hours">
+      <view id="demo1" class="scroll-view-item demo-text-1"></view>
+      <h2 id="title">逐小时预报</h2><a id="txt-source" href="http://www.weather.com.cn/" target="_blank">数据来源于中国天气网</a>
+      <div class="ct-page-ctrl">
+        <a href="javascript:;" id="btn-prev" class="btn"></a>
+        <a href="javascript:;" id="btn-next" class="btn"></a>
+      </div>
+      <scroll-view scroll-y="true" style="height: 143px;" scroll-x="true">
+        <div id="ct-weather">
+          <ol id="ls-weather-hour" class="ls-weather">
+            <li class="item">
+              <p class="txt-time">22:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">12°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">23:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">11°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">明天</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">10°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">01:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">10°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">02:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">10°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">03:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">10°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">04:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">10°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">05:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">10°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">05:31</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/rise.png" alt="日出" title="日出" class="icon">
+              <p class="txt-degree">日出</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">06:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">10°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">07:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">12°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">08:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">14°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">09:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">16°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">10:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">19°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">11:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴" class="icon">
+              <p class="txt-degree">21°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">12:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">21°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">13:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">22°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">14:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">22°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">15:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">22°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">16:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">21°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">17:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">20°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">18:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">17°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">18:17</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/set.png" alt="日落" title="日落" class="icon">
+              <p class="txt-degree">日落</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">19:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">15°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">20:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">16°</p>
+            </li>
+            <li class="item">
+              <p class="txt-time">21:00</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云" class="icon">
+              <p class="txt-degree">15°</p>
+            </li>
+          </ol>
+        </div>
+      </scroll-view>
+    </div>
+    <!-- 7 day -->
+    <!-- <div id="ct-7-days"><a id="link-15" href="http://www.weather.com.cn/weather15d/101210401.shtml" data-boss="swryb" target="_blank">15日天气预报</a>
+        <h2 id="title">7日天气预报</h2>
+        <div id="ct-weather" class="box-content">
+          <ol id="ls-weather-day" class="ls-weather">
+            <li class="item first" style="width: 92px">
+              <p class="day">昨天</p>
+              <p class="date">04月08日</p>
+              <div class="ct-daytime">
+                <p class="weather">晴</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/02.png" alt="阴" title="阴">
+                <p class="weather">阴</p>
+              </div>
+              <p class="wind">微风 3级</p>
+            </li>
+            <li class="item second" style="width: 92px">
+              <p class="day">今天</p>
+              <p class="date">04月09日</p>
+              <div class="ct-daytime">
+                <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴">
+                <p class="weather">晴</p>
+              </div>
+              <p class="wind">东南风 4级</p>
+            </li>
+            <li class="item" style="width: 92px">
+              <p class="day">明天</p>
+              <p class="date">04月10日</p>
+              <div class="ct-daytime">
+                <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/02.png" alt="阴" title="阴">
+                <p class="weather">阴</p>
+              </div>
+              <p class="wind">东南风 5级</p>
+            </li>
+            <li class="item" style="width: 92px">
+              <p class="day">后天</p>
+              <p class="date">04月11日</p>
+              <div class="ct-daytime">
+                <p class="weather">中雨</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/21.png" alt="中雨" title="中雨"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/21.png" alt="中雨" title="中雨">
+                <p class="weather">中雨</p>
+              </div>
+              <p class="wind">西北风 6级</p>
+            </li>
+            <li class="item" style="width: 92px">
+              <p class="day">周日</p>
+              <p class="date">04月12日</p>
+              <div class="ct-daytime">
+                <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云">
+                <p class="weather">多云</p>
+              </div>
+              <p class="wind">西北风 6级</p>
+            </li>
+            <li class="item" style="width: 92px">
+              <p class="day">周一</p>
+              <p class="date">04月13日</p>
+              <div class="ct-daytime">
+                <p class="weather">晴</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云">
+                <p class="weather">多云</p>
+              </div>
+              <p class="wind">微风 3级</p>
+            </li>
+            <li class="item" style="width: 92px">
+              <p class="day">周二</p>
+              <p class="date">04月14日</p>
+              <div class="ct-daytime">
+                <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云">
+                <p class="weather">多云</p>
+              </div>
+              <p class="wind">微风 3级</p>
+            </li>
+            <li class="item last" style="width: 92px">
+              <p class="day">周三</p>
+              <p class="date">04月15日</p>
+              <div class="ct-daytime">
+                <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴">
+                <p class="weather">晴</p>
+              </div>
+              <p class="wind">南风 4级</p>
+            </li>
+          </ol>
+          <div id="chart-days" _echarts_instance_="ec_1586442293952" style="-webkit-tap-highlight-color: transparent; user-select: none; background: rgba(0, 0, 0, 0);">
+            <div style="position: relative; overflow: hidden; width: 740px; height: 174px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="740" height="174" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 740px; height: 174px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div>
+          </div>
+        </div>
+      </div> -->
+    <!-- live -->
+    <div id="ct-living-index">
+      <div class="ct-page-ctrl">
+        <a href="javascript:;" id="btn-prev" class="btn"></a>
+        <a href="javascript:;" id="btn-next" class="btn"></a>
+      </div>
+      <h2 id="title">生活指数</h2>
+      <div id="ct-pages">
+        <div id="ct-content">
+          <ul id="ls-living1" class="page">
+            <li class="item odd">
+              <div class="ct-sub"> <i class="icon icon_chuanyi_shushi"></i>
+                <p class="content">穿衣&nbsp;较舒适</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">
+                  <p></p>
+                  <p>宜：</p>
+                  <p>忌：</p>
+                </div>
+              </div>
+            </li>
+            <li class="item even">
+              <div class="ct-sub"> <i class="icon icon_yusan"></i>
+                <p class="content">雨伞&nbsp;不带伞</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">天气较好，您在出门的时候无须带雨伞。</div>
+              </div>
+            </li>
+            <li class="item odd">
+              <div class="ct-sub"> <i class="icon icon_ganmao"></i>
+                <p class="content">感冒&nbsp;少发</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">各项气象条件适宜，无明显降温过程，发生感冒机率较低。</div>
+              </div>
+            </li>
+            <li class="item even">
+              <div class="ct-sub"> <i class="icon icon_xiche"></i>
+                <p class="content">洗车&nbsp;适宜</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">适宜洗车，未来持续两天无雨天气较好，适合擦洗汽车，蓝天白云、风和日丽将伴您的车子连日洁净。</div>
+              </div>
+            </li>
+            <li class="item odd">
+              <div class="ct-sub"> <i class="icon icon_yundong"></i>
+                <p class="content">运动&nbsp;较适宜</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">天气较好，但因风力稍强，户外可选择对风力要求不高的运动，推荐您进行室内运动。</div>
+              </div>
+            </li>
+            <li class="item even">
+              <div class="ct-sub"> <i class="icon icon_fangsai"></i>
+                <p class="content">防晒&nbsp;极强</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">紫外辐射极强，应特别加强防护，建议涂擦SPF20以上，PA++的防晒护肤品，并随时补涂。</div>
+              </div>
+            </li>
+          </ul>
+          <ul id="ls-living2" class="page">
+            <li class="item odd">
+              <div class="ct-sub"> <i class="icon icon_diaoyu"></i>
+                <p class="content">钓鱼&nbsp;较适宜</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">
+                  <p></p>
+                  <p>宜：</p>
+                  <p>忌：</p>
+                </div>
+              </div>
+            </li>
+            <li class="item even">
+              <div class="ct-sub"> <i class="icon icon_lvyou"></i>
+                <p class="content">旅游&nbsp;适宜</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">天气较好，风稍大，但温度适宜，是个好天气哦。适宜旅游，您可以尽情地享受大自然的无限风光。</div>
+              </div>
+            </li>
+            <li class="item odd">
+              <div class="ct-sub"> <i class="icon icon_jiaotong"></i>
+                <p class="content">交通&nbsp;良好</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">天气较好，路面干燥，交通气象条件良好，车辆可以正常行驶。</div>
+              </div>
+            </li>
+            <li class="item even">
+              <div class="ct-sub"> <i class="icon icon_wurankuosan"></i>
+                <p class="content">空气污染扩散条件&nbsp;良</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">气象条件有利于空气污染物稀释、扩散和清除。</div>
+              </div>
+            </li>
+            <li class="item odd">
+              <div class="ct-sub"> <i class="icon icon_shushidu"></i>
+                <p class="content">舒适度&nbsp;舒适</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">白天温度适宜，风力不大，相信您在这样的天气条件下，应会感到比较清爽和舒适。</div>
+              </div>
+            </li>
+            <li class="item even">
+              <div class="ct-sub"> <i class="icon icon_liangshai"></i>
+                <p class="content">晾晒&nbsp;适宜</p>
+              </div>
+              <div class="ct-detail">
+                <div class="detail">天气不错，适宜晾晒。赶紧把久未见阳光的衣物搬出来吸收一下太阳的味道吧！</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </div>
   </div>
 </template>
 
 <script>
   import wepy from '@wepy/core'
   import eventHub from '../common/eventHub';
-  import {
-    mapState
-  } from '@wepy/x';
-  import store from '../store';
   wepy.page({
-    store,
     data: {
       count: 0
     },
     methods: {
       login() {
-        console.log('登录123。。！')
-        wx.login((res) => {
-          console.log(res)
-          if (res.code) {
-            console.log(res.code)
-            //发起网络请求
-            wx.request({
-              url: 'https://test.com/onLogin',
-              data: {
-                code: res.code
-              }
-            })
-          } else {
-            console.log('登录失败！' + res.errMsg)
+        wx.login({
+          success(res) {
+            console.log(res)
+            if (res.code) {
+              //发起网络请求
+              wx.request({
+                url: 'https://weather.andyoung.top/wx/user/login',
+                data: {
+                  code: res.code
+                }
+              })
+            } else {
+              console.log('登录失败！' + res.errMsg)
+            }
+          }
+        })
+      },
+      getUserInfo() {
+        wx.getUserInfo({
+          success: function(res) {
+            console.log(res)
+            var userInfo = res.userInfo
+            var nickName = userInfo.nickName
+            var avatarUrl = userInfo.avatarUrl
+            var gender = userInfo.gender //性别 0：未知、1：男、2：女
+            var province = userInfo.province
+            var city = userInfo.city
+            var country = userInfo.country
+          },
+          fail(error) {
+            console.log(error)
           }
         })
       },
@@ -71,6 +1859,7 @@
       }
     },
     created() {
+      this.getUserInfo()
       this.getLocation()
       this.getWeatherInfo()
       this.login();
