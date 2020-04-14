@@ -1738,7 +1738,8 @@
         return this.forecast_1h[0] ? this.forecast_1h[0]['wind_direction'] : ''
       },
       currentWeather() {
-        return "https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/night/" + this.observe.weather_code + ".png"
+        let day = this.ct_hour < 18 && this.ct_hour > 6 ? 'day/':'night/';
+        return "https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/"+ day + this.observe.weather_code + ".png"
       }
       //        observeWindDirection(){
       // return this.forecast_1h[0]['wind_direction']
@@ -1747,7 +1748,7 @@
     filters: {
       forecast_1hs(f) {
         console.log(f)
-        return (ct_hour + 1) % 24 + ":00"
+        return (this.ct_hour + 1) % 24 + ":00"
       },
     },
     methods: {
