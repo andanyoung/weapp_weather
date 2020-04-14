@@ -1,11 +1,11 @@
 <style lang="less">
   #ct-content {
-    width: 100%;
+    width: 100%;    
+    background-color:#00a2ff;
   }
   #ct-current {
     background-image: url(https://weather.andyoung.top/bg_20200409005007.png);
     background-size: cover;
-    background-color: rgb(42, 60, 90);
     height: 360px;
     width: 100%;
     padding-top: 90px;
@@ -1633,6 +1633,9 @@
   import wepy from '@wepy/core'
   import forecast_1hs from '../utils/forecast_1hs';
   wepy.page({
+    onPullDownRefresh() {
+     this.getWeatherInfo(this.location ? "queryByLocation":"") 
+    },
     data: {
       ad_info: {
         province: "",
@@ -1762,6 +1765,12 @@
           url: 'https://weather.andyoung.top/weather/' + queryType,
           data: data,
           success: function(res) {
+
+             // 隐藏导航栏加载框
+        wx.hideNavigationBarLoading();
+        // 停止下拉动作
+        wx.stopPullDownRefresh()
+
             that.observe = res.data.data.observe
             that.air = res.data.data.air
             that.tips = res.data.data.tips
@@ -1822,6 +1831,7 @@
 <config>
 {
     navigationBarTitleText: '每日天气预报',
+    enablePullDownRefresh:true,
     usingComponents: {
       panel: '~@/components/panel',
       counter: '~counter',
