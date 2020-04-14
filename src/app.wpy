@@ -24,7 +24,8 @@
       }
     },
     globalData: {
-      userInfo: null
+      userInfo: null,
+      location:''
     },
     onLaunch() {
       this.testAsync();

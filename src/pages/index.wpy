@@ -12,6 +12,27 @@
     padding-left: 16px;
     padding-right: 16px;
   }
+  #ct-current #ct-location {
+    position: absolute;
+    top: 245px;
+    right: 16px;
+    // width: 134px;
+    height: 134px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+  }
+  #ct-current #ct-location:before {
+    content: '';
+    float: left;
+    height: 16px;
+    width: 16px;
+    background-image: url(https://mat1.gtimg.com/pingjs/ext2020/weather/2017/images/sprites/sprite-7d98dbada9.png);
+    background-position: -216px -126px;
+    background-size: 234px 212px!important;
+    margin-right: 7px;
+    margin-top: 1px;
+  }
   #ct-current #ct-current-weather {
     position: absolute;
     top: 90px;
@@ -348,7 +369,7 @@
   }
   #ct-hours {
     display: inline-block;
-    height: 180px;
+    height: 160px;
     margin: 20px auto 40px;
     background: #fff;
     border-radius: 10px;
@@ -410,14 +431,14 @@
     color: #8a9baf;
     line-height: 14px;
     height: 14px;
-    margin-bottom: 24px
+    margin-bottom: 16px
   }
   #ct-hours #ls-weather-hour .item .icon {
     display: block;
     height: 30px;
     width: 30px;
     margin: 0 auto;
-    margin-bottom: 18px
+    margin-bottom: 8px
   }
   #ct-hours #ls-weather-hour .item .txt-degree {
     font-size: 18px;
@@ -426,7 +447,7 @@
   }
   #ct-7-days {
     float: left;
-    width: 740px;
+    width: 90%;
     height: 492px;
     padding: 20px 0 0;
     border-radius: 10px;
@@ -472,16 +493,17 @@
   }
   #ct-7-days #ct-weather {
     overflow: hidden;
-    position: relative
+    position: relative;
+    white-space: nowrap;
   }
   #ct-7-days .item {
     width: 92px;
     text-align: center;
-    float: left;
     background-repeat: no-repeat;
     background-position: right;
     position: relative;
-    padding: 11px 0 25px
+    padding: 8px 0 16px;
+    display: inline-block;
   }
   #ct-7-days .item.last {
     margin-right: 0
@@ -1450,129 +1472,57 @@
         <div id="ct-tips">
           <p id="txt-tips">{{ observeTips }}</p>
           <view href="javascript:;" id="btn-tip-switch" style="display: inline-block;" v-on:tap="observeTipsChangeHandler">
-            </a>
         </div>
+        <div id="ct-location">{{adInfo}}</div>
         <div id="ct-current-weather"><img class="icon" v-bind:src="currentWeather"></div>
       </div>
     </div>
     <!--ct-hour -->
-    <!-- <div class="container" id="ct-hours">
-        <h2 id="title">逐小时预报</h2><a id="txt-source" href="http://www.weather.com.cn/" target="_blank">数据来源于中国天气网</a>
-        <div class="ct-page-ctrl">
-          <a href="javascript:;" id="btn-prev" class="btn"></a>
-          <a href="javascript:;" id="btn-next" class="btn"></a>
+    <div class="container" id="ct-hours">
+      <h2 id="title">逐小时预报</h2><a id="txt-source" href="http://www.weather.com.cn/" target="_blank">数据来源于中国天气网</a>
+      <scroll-view scroll-y="true" style="height: 160px;" scroll-x="true">
+        <div id="ct-weather">
+          <ol id="ls-weather-hour" class="ls-weather">
+            <li class="item" v-for="(item, idx) in forecast_1h">
+              <p class="txt-time">{{ item.hour_desc }}</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/{{item.hour < 18 && item.hour > 6 ? 'day/' : 'night/'}}{{item.weather_code}}.png" alt="晴" title="晴" class="icon" />
+              <p class="txt-degree">{{item.degree}}°</p>
+            </li>
+          </ol>
         </div>
-        <scroll-view scroll-y="true" style="height: 160px;" scroll-x="true">
-          <div id="ct-weather">
-            <ol id="ls-weather-hour" class="ls-weather">
-              <li class="item" v-for="(item, idx) in forecast_1h">
-                <p class="txt-time">{{ forecast_1hs | idx }}</p> <img src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/{{item.weather_code}}.png" alt="晴" title="晴" class="icon"/>
-                <p class="txt-degree">{{item.degree}}°</p>
-              </li>
-            </ol>
-          </div>
+      </scroll-view>
+    </div>
+    <!-- 7 day -->
+    <!-- <div id="ct-7-days">
+        <h2 id="title">7日天气预报</h2>
+        <scroll-view id="ct-weather" class="box-content" scroll-x="true" style="height: 472px;">
+          <ol id="ls-weather-day" class="ls-weather">
+            <li class="item " :class="{ 'first': index==0 }" style="width: 92px" v-for="(item, index) in forecast_24h">
+              <p class="day">{{forecast_1hs(1,1)}}</p>
+              <p class="date">{{item.time}}</p>
+              <div class="ct-daytime">
+                <p class="weather">{{item.day_weather}}</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/{{item.day_weather_code}}.png" alt="晴" title="晴"> </div>
+              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/{{item.night_weather_code}}.png" alt="阴" title="阴">
+                <p class="weather">{{item.night_weather}}</p>
+              </div>
+              <p class="wind">{{item.night_wind_direction}} {{item.night_wind_power}}级</p>
+            </li>
+          </ol>
+           <div id="chart-days" _echarts_instance_="ec_1586442293952" style="-webkit-tap-highlight-color: transparent; user-select: none; background: rgba(0, 0, 0, 0);">
+            <div style="position: relative; overflow: hidden; width: 740px; height: 174px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
+              <canvas width="740" height="174" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 740px; height: 174px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+            </div>
+          </div> 
         </scroll-view>
       </div> -->
-    <!-- 7 day -->
-    <!-- <div id="ct-7-days"><a id="link-15" href="http://www.weather.com.cn/weather15d/101210401.shtml" data-boss="swryb" target="_blank">15日天气预报</a>
-                  <h2 id="title">7日天气预报</h2>
-                  <div id="ct-weather" class="box-content">
-                    <ol id="ls-weather-day" class="ls-weather">
-                      <li class="item first" style="width: 92px">
-                        <p class="day">昨天</p>
-                        <p class="date">04月08日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">晴</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/02.png" alt="阴" title="阴">
-                          <p class="weather">阴</p>
-                        </div>
-                        <p class="wind">微风 3级</p>
-                      </li>
-                      <li class="item second" style="width: 92px">
-                        <p class="day">今天</p>
-                        <p class="date">04月09日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴">
-                          <p class="weather">晴</p>
-                        </div>
-                        <p class="wind">东南风 4级</p>
-                      </li>
-                      <li class="item" style="width: 92px">
-                        <p class="day">明天</p>
-                        <p class="date">04月10日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/02.png" alt="阴" title="阴">
-                          <p class="weather">阴</p>
-                        </div>
-                        <p class="wind">东南风 5级</p>
-                      </li>
-                      <li class="item" style="width: 92px">
-                        <p class="day">后天</p>
-                        <p class="date">04月11日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">中雨</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/21.png" alt="中雨" title="中雨"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/21.png" alt="中雨" title="中雨">
-                          <p class="weather">中雨</p>
-                        </div>
-                        <p class="wind">西北风 6级</p>
-                      </li>
-                      <li class="item" style="width: 92px">
-                        <p class="day">周日</p>
-                        <p class="date">04月12日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云">
-                          <p class="weather">多云</p>
-                        </div>
-                        <p class="wind">西北风 6级</p>
-                      </li>
-                      <li class="item" style="width: 92px">
-                        <p class="day">周一</p>
-                        <p class="date">04月13日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">晴</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/00.png" alt="晴" title="晴"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云">
-                          <p class="weather">多云</p>
-                        </div>
-                        <p class="wind">微风 3级</p>
-                      </li>
-                      <li class="item" style="width: 92px">
-                        <p class="day">周二</p>
-                        <p class="date">04月14日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/01.png" alt="多云" title="多云">
-                          <p class="weather">多云</p>
-                        </div>
-                        <p class="wind">微风 3级</p>
-                      </li>
-                      <li class="item last" style="width: 92px">
-                        <p class="day">周三</p>
-                        <p class="date">04月15日</p>
-                        <div class="ct-daytime">
-                          <p class="weather">多云</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" alt="多云" title="多云"> </div>
-                        <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/00.png" alt="晴" title="晴">
-                          <p class="weather">晴</p>
-                        </div>
-                        <p class="wind">南风 4级</p>
-                      </li>
-                    </ol>
-                    <div id="chart-days" _echarts_instance_="ec_1586442293952" style="-webkit-tap-highlight-color: transparent; user-select: none; background: rgba(0, 0, 0, 0);">
-                      <div style="position: relative; overflow: hidden; width: 740px; height: 174px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="740" height="174" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 740px; height: 174px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div>
-                    </div>
-                  </div>
-                </div> -->
     <!-- live -->
     <div id="ct-living-index">
       <!-- <div class="ct-page-ctrl">
-            <a href="javascript:;" id="btn-prev" class="btn"></a>
-            <a href="javascript:;" id="btn-next" class="btn"></a>
-          </div> -->
+                        <a href="javascript:;" id="btn-prev" class="btn"></a>
+                        <a href="javascript:;" id="btn-next" class="btn"></a>
+                      </div> -->
       <h2 id="title">生活指数</h2>
       <div id="ct-pages">
-        <div id="ct-content">
+        <div id="ct-content1">
           <ul id="ls-living1" class="page">
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_chuanyi_shushi"></i>
@@ -1592,10 +1542,10 @@
             </li>
             <li class="item odd">
               <div class="ct-sub"> <i class="icon icon_ganmao"></i>
-                <p class="content">{{ index.clothes.name }} {{ index.clothes.info }}</p>
+                <p class="content">{{ index.cold.name }} {{ index.cold.info }}</p>
               </div>
               <div class="ct-detail">
-                <div class="detail">{{ index.clothes.detail }}</div>
+                <div class="detail">{{ index.cold.detail }}</div>
               </div>
             </li>
             <li class="item even">
@@ -1681,9 +1631,14 @@
 
 <script>
   import wepy from '@wepy/core'
-  import eventHub from '../common/eventHub';
+  import forecast_1hs from '../utils/forecast_1hs';
   wepy.page({
     data: {
+      ad_info: {
+        province: "",
+        city: "",
+        county: ""
+      },
       ct_hour: 0,
       observeTips: "现在的温度比较凉爽~",
       observe: {
@@ -1706,6 +1661,7 @@
         wind_direction: "--",
         wind_power: "-"
       }],
+      forecast_24h: [],
       air: {
         aqi: '--',
         aqi_level: 1,
@@ -1729,6 +1685,12 @@
       }]
     },
     computed: {
+      adInfo() {
+        return this.ad_info.province + " " + this.ad_info.city + " " + this.ad_info.county
+      },
+      currentDayDesc() {
+        return this.ct_hour < 18 && this.ct_hour > 6 ? 'day/' : 'night/';
+      },
       observeUpdateTime() {
         var hour = this.observe.update_time.substring(8, 10)
         var m = this.observe.update_time.substring(10, 12)
@@ -1738,18 +1700,11 @@
         return this.forecast_1h[0] ? this.forecast_1h[0]['wind_direction'] : ''
       },
       currentWeather() {
-        let day = this.ct_hour < 18 && this.ct_hour > 6 ? 'day/':'night/';
-        return "https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/"+ day + this.observe.weather_code + ".png"
-      }
-      //        observeWindDirection(){
-      // return this.forecast_1h[0]['wind_direction']
-      //       },
-    },
-    filters: {
-      forecast_1hs(f) {
-        console.log(f)
-        return (this.ct_hour + 1) % 24 + ":00"
+        return "https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/" + this.currentDayDesc + this.observe.weather_code + ".png"
       },
+      dayDesc(hour) {
+        return hour < 18 && hour > 6 ? 'day/' : 'night/';
+      }
     },
     methods: {
       observeTipsChangeHandler() {
@@ -1794,28 +1749,42 @@
           }
         })
       },
-      getWeatherInfo() {
+      getWeatherInfo(queryType) {
+        queryType || (queryType = 'query')
+        let data = {};
+        if (queryType === 'queryByLocation') {
+          var appInst = getApp();
+          console.log(wepy)
+          data['location'] = this.location
+        }
         let that = this;
         wx.request({
-          url: 'https://weather.andyoung.top/weather/query/%E6%B5%99%E6%B1%9F/%E5%AE%81%E6%B3%A2/%E5%AE%81%E6%B5%B7',
-          data: {
-            code: ""
-          },
+          url: 'https://weather.andyoung.top/weather/' + queryType,
+          data: data,
           success: function(res) {
             that.observe = res.data.data.observe
-            that.forecast_1h = res.data.data.forecast_1h
             that.air = res.data.data.air
             that.tips = res.data.data.tips
             that.observeTips = res.data.data.tips.observe[0]
             that.index = res.data.data.index
             var now = new Date();
             that.ct_hour = now.getHours(); //得到小时
-            console.log(that.ct_hour)
+            let forecast_1h = []
+            for (let item in res.data.data.forecast_1h) {
+              res.data.data.forecast_1h[item].hour_desc = forecast_1hs(that.ct_hour, item)
+              res.data.data.forecast_1h[item].hour = (parseInt(that.ct_hour) + parseInt(item)) % 24
+            }
+            that.forecast_1h = res.data.data.forecast_1h
+            that.ad_info.province = res.data.data.province
+            that.ad_info.city = res.data.data.city
+            that.ad_info.county = res.data.data.county
+            that.forecast_24h = res.data.data.forecast_24h
           }
         })
       },
       getLocation() {
         //定位信息
+        let that = this
         wx.getLocation({
           type: 'wgs84',
           isHighAccuracy: false,
@@ -1825,16 +1794,27 @@
             const longitude = res.longitude
             const speed = res.speed
             const accuracy = res.accuracy
-            console.log(res)
+            that.location = latitude + ',' + longitude
+            that.getWeatherInfo("queryByLocation")
           }
         })
       }
     },
     created() {
+      this.login();
       this.getUserInfo()
       this.getLocation()
-      this.getWeatherInfo()
-   //  this.login();
+      let that = this
+      wx.getSetting({
+        success(res) {
+          console.log(res.authSetting)
+          if (res.authSetting["scope.userLocation"]) {
+            that.getWeatherInfo("queryByLocation")
+          } else {
+            that.getWeatherInfo()
+          }
+        }
+      })
     }
   });
 </script>
