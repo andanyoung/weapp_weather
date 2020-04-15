@@ -1,7 +1,7 @@
 <style lang="less">
   #ct-content {
-    width: 100%;    
-    background-color:#00a2ff;
+    width: 100%;
+    background-color: #00a2ff;
   }
   #ct-current {
     background-image: url(https://weather.andyoung.top/bg_20200409005007.png);
@@ -15,9 +15,7 @@
   #ct-current #ct-location {
     position: absolute;
     top: 245px;
-    right: 16px;
-    // width: 134px;
-    height: 134px;
+    right: 16px; // width: 134px;
     font-size: 16px;
     color: #fff;
     cursor: pointer;
@@ -50,7 +48,6 @@
     opacity: .6;
     height: 19px;
     line-height: 19px;
-    margin-bottom: 20px
   }
   #ct-current #ct-main {
     height: 86px;
@@ -448,8 +445,7 @@
   #ct-7-days {
     float: left;
     width: 90%;
-    height: 492px;
-    padding: 20px 0 0;
+    padding: 20px 0 8px;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, .08)
@@ -544,7 +540,7 @@
     margin-bottom: 20px
   }
   #ct-7-days .item .ct-night {
-    margin-top: 174px;
+    margin-top: 48px;
     margin-bottom: 24px
   }
   #ct-7-days .item .ct-night .icon {
@@ -1216,6 +1212,14 @@
     float: left;
     width: 146px
   }
+  #subscription {
+    position: absolute;
+    top: 285px;
+    right: 16px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+  }
   #ct-attention #ls-attention .city .location {
     display: inline-block
   }
@@ -1473,7 +1477,10 @@
           <p id="txt-tips">{{ observeTips }}</p>
           <view href="javascript:;" id="btn-tip-switch" style="display: inline-block;" v-on:tap="observeTipsChangeHandler">
         </div>
-        <div id="ct-location">{{adInfo}}</div>
+        <div id="ct-location">{{adInfo}}
+        </div>
+        <br/>
+        <van-button custom-style="background-color:rgba(1,1,1,0);border-radius:4px;" color="white" id="subscription" bindtap="handleSubscription" icon="plus" plain type="info" size="small">订阅</van-button>
         <div id="ct-current-weather"><img class="icon" v-bind:src="currentWeather"></div>
       </div>
     </div>
@@ -1492,34 +1499,34 @@
       </scroll-view>
     </div>
     <!-- 7 day -->
-    <!-- <div id="ct-7-days">
-        <h2 id="title">7日天气预报</h2>
-        <scroll-view id="ct-weather" class="box-content" scroll-x="true" style="height: 472px;">
-          <ol id="ls-weather-day" class="ls-weather">
-            <li class="item " :class="{ 'first': index==0 }" style="width: 92px" v-for="(item, index) in forecast_24h">
-              <p class="day">{{forecast_1hs(1,1)}}</p>
-              <p class="date">{{item.time}}</p>
-              <div class="ct-daytime">
-                <p class="weather">{{item.day_weather}}</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/{{item.day_weather_code}}.png" alt="晴" title="晴"> </div>
-              <div class="ct-night"> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/{{item.night_weather_code}}.png" alt="阴" title="阴">
-                <p class="weather">{{item.night_weather}}</p>
-              </div>
-              <p class="wind">{{item.night_wind_direction}} {{item.night_wind_power}}级</p>
-            </li>
-          </ol>
-           <div id="chart-days" _echarts_instance_="ec_1586442293952" style="-webkit-tap-highlight-color: transparent; user-select: none; background: rgba(0, 0, 0, 0);">
-            <div style="position: relative; overflow: hidden; width: 740px; height: 174px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
-              <canvas width="740" height="174" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 740px; height: 174px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+    <div id="ct-7-days">
+      <h2 id="title">7日天气预报</h2>
+      <scroll-view id="ct-weather" class="box-content" scroll-x="true" style="height: 372px;">
+        <ol id="ls-weather-day" class="ls-weather">
+          <li class="item " :class="{ 'first': index==0 , 'second': index==1 }" style="width: 92px" v-for="(item, index) in forecast_24h">
+            <p class="day">{{forecast_1hs(1,1)}}</p>
+            <p class="date">{{item.time}}</p>
+            <div class="ct-daytime">
+              <p class="weather">{{item.day_weather}}</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/{{item.day_weather_code}}.png" alt="晴" title="晴" />
+              <p>{{item.max_degree}}℃</p>
             </div>
-          </div> 
-        </scroll-view>
-      </div> -->
+            <div class="ct-night">
+              <p>{{item.min_degree}}℃</p>
+              <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/{{item.night_weather_code}}.png" alt="阴" title="阴" />
+              <p class="weather">{{item.night_weather}}</p>
+            </div>
+            <p class="wind">{{item.night_wind_direction}} {{item.night_wind_power}}级</p>
+          </li>
+        </ol>
+        <!-- <ec-canvas id="chart-days" disable-scroll="true"></ec-canvas> -->
+      </scroll-view>
+    </div>
     <!-- live -->
     <div id="ct-living-index">
       <!-- <div class="ct-page-ctrl">
-                        <a href="javascript:;" id="btn-prev" class="btn"></a>
-                        <a href="javascript:;" id="btn-next" class="btn"></a>
-                      </div> -->
+                                    <a href="javascript:;" id="btn-prev" class="btn"></a>
+                                    <a href="javascript:;" id="btn-next" class="btn"></a>
+                                  </div> -->
       <h2 id="title">生活指数</h2>
       <div id="ct-pages">
         <div id="ct-content1">
@@ -1626,6 +1633,10 @@
         </div>
       </div>
     </div>
+    <!-- area -->
+    <!-- <van-popup show="{{ areaShow }}" closeable position="bottom" custom-style="height: 30%" @close="{{ areaShow = false }}">
+            <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
+          </van-popup> -->
   </div>
 </template>
 
@@ -1634,9 +1645,11 @@
   import forecast_1hs from '../utils/forecast_1hs';
   wepy.page({
     onPullDownRefresh() {
-     this.getWeatherInfo(this.location ? "queryByLocation":"") 
+      this.getWeatherInfo(this.location ? "queryByLocation" : "")
     },
     data: {
+      // areaShow: true,
+      // areaList: [],
       ad_info: {
         province: "",
         city: "",
@@ -1710,6 +1723,31 @@
       }
     },
     methods: {
+      // startChatInit() {
+      //   if (!this.chart) {
+      //     this.chart = this.$wx.selectComponent('#chart-days');
+      //   }
+      //   this.chart.init(this.initChart);
+      // },
+      // initChart(canvas, width, height) {
+      //   const chart = echarts.init(canvas, null, {
+      //     width: width,
+      //     height: height
+      //   });
+      //   canvas.setChart(chart);
+      //  var option = {
+      //     xAxis : [{show:false}],
+      //     yAxis : [  {show:false} ],
+      //     series: [
+      //         {
+      //             type:'line',
+      //             data:[10, 52, 200, 334, 390, 330, 220]
+      //         }
+      //     ]
+      //   };
+      //   chart.setOption(option);
+      //   return chart;
+      // },
       observeTipsChangeHandler() {
         if (this.observeTips === this.tips.observe[0]) {
           this.observeTips = this.tips.observe[1]
@@ -1752,25 +1790,24 @@
           }
         })
       },
+      getWeatherInfoByLocation() {
+        this.getWeatherInfo(this.$app.$options.globalData.location ? 'queryByLocation' : '')
+      },
       getWeatherInfo(queryType) {
         queryType || (queryType = 'query')
         let data = {};
         if (queryType === 'queryByLocation') {
-          var appInst = getApp();
-          console.log(wepy)
-          data['location'] = this.location
+          data['location'] = this.$app.$options.globalData.location
         }
         let that = this;
         wx.request({
           url: 'https://weather.andyoung.top/weather/' + queryType,
           data: data,
           success: function(res) {
-
-             // 隐藏导航栏加载框
-        wx.hideNavigationBarLoading();
-        // 停止下拉动作
-        wx.stopPullDownRefresh()
-
+            // 隐藏导航栏加载框
+            wx.hideNavigationBarLoading();
+            // 停止下拉动作
+            wx.stopPullDownRefresh()
             that.observe = res.data.data.observe
             that.air = res.data.data.air
             that.tips = res.data.data.tips
@@ -1803,27 +1840,46 @@
             const longitude = res.longitude
             const speed = res.speed
             const accuracy = res.accuracy
-            that.location = latitude + ',' + longitude
-            that.getWeatherInfo("queryByLocation")
+            that.$app.$options.globalData.location = latitude + ',' + longitude
+            that.getWeatherInfoByLocation()
           }
         })
+      },
+      handleSubscription(){
+
+      wx.requestSubscribeMessage({
+        tmplIds: ['_rUioMbGULV7wSmdk54VVzS5H0mUYyzOljoiFHsg1Y8','AiVhX_4ymoMvX4UtlRY89rh8klZyBM5ZqewjWp0vzrI'],
+        success(res) {
+          console.log(res)
+        },
+        fail() {
+          console.log(arguments)
+        }
+      })
       }
     },
     created() {
       this.login();
-      this.getUserInfo()
-      this.getLocation()
+      //  this.getUserInfo()
       let that = this
       wx.getSetting({
         success(res) {
-          console.log(res.authSetting)
           if (res.authSetting["scope.userLocation"]) {
-            that.getWeatherInfo("queryByLocation")
+            that.getLocation()
+            // that.getWeatherInfo("queryByLocation")
+          } else if (res.authSetting["scope.userLocation"] === false) {
+            that.getWeatherInfo()
           } else {
             that.getWeatherInfo()
+            that.getLocation()
           }
         }
       })
+
+    },
+    onReady() {
+      //   this.startChatInit()
+      
     }
   });
 </script>
@@ -1833,11 +1889,11 @@
     navigationBarTitleText: '每日天气预报',
     enablePullDownRefresh:true,
     usingComponents: {
-      panel: '~@/components/panel',
-      counter: '~counter',
-      list: '../components/list',
-      group: '../components/group',
-      "slide-view": "module:miniprogram-slide-view",
+      "van-button": "../components/@vant/weapp/button/index"
+      // "ec-canvas": "../components/ec-canvas/ec-canvas"
+      // "van-area": "../components/@vant/weapp/area/index",
+      //  "van-picker": "../components/@vant/weapp/picker/index",
+      //  "van-popup": "../components/@vant/weapp/popup/index"
     }
 }
 </config>
