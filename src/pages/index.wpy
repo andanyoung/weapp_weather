@@ -440,7 +440,7 @@
   #ct-hours #ls-weather-hour .item .txt-degree {
     font-size: 18px;
     color: #384c78;
-    line-height: 14px
+    line-height: 14px;
   }
   #ct-7-days {
     float: left;
@@ -571,6 +571,7 @@
   }
   #ct-living-index {
     width: 90%;
+    margin-top: 16px;
   }
   #ct-living-index #title {
     float: left;
@@ -1480,7 +1481,7 @@
         <div id="ct-location">{{adInfo}}
         </div>
         <br/>
-        <van-button custom-style="background-color:rgba(1,1,1,0);border-radius:4px;" color="white" id="subscription" bindtap="handleSubscription" icon="plus" plain type="info" size="small">订阅</van-button>
+        <van-button v-if="showSubscription" custom-style="background-color:rgba(1,1,1,0);border-radius:4px;" color="white" id="subscription" bindtap="handleSubscription" icon="plus" plain type="info" size="small">订阅</van-button>
         <div id="ct-current-weather"><img class="icon" v-bind:src="currentWeather"></div>
       </div>
     </div>
@@ -1501,32 +1502,34 @@
     <!-- 7 day -->
     <div id="ct-7-days">
       <h2 id="title">7日天气预报</h2>
-      <scroll-view id="ct-weather" class="box-content" scroll-x="true" style="height: 372px;">
-        <ol id="ls-weather-day" class="ls-weather">
-          <li class="item " :class="{ 'first': index==0 , 'second': index==1 }" style="width: 92px" v-for="(item, index) in forecast_24h">
-            <p class="day">{{forecast_1hs(1,1)}}</p>
-            <p class="date">{{item.time}}</p>
-            <div class="ct-daytime">
-              <p class="weather">{{item.day_weather}}</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/{{item.day_weather_code}}.png" alt="晴" title="晴" />
-              <p>{{item.max_degree}}℃</p>
-            </div>
-            <div class="ct-night">
-              <p>{{item.min_degree}}℃</p>
-              <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/{{item.night_weather_code}}.png" alt="阴" title="阴" />
-              <p class="weather">{{item.night_weather}}</p>
-            </div>
-            <p class="wind">{{item.night_wind_direction}} {{item.night_wind_power}}级</p>
-          </li>
-        </ol>
-        <!-- <ec-canvas id="chart-days" disable-scroll="true"></ec-canvas> -->
-      </scroll-view>
+      <div style="padding:0px 16px 016px">
+        <scroll-view id="ct-weather" class="box-content" scroll-x="true" style="height: 372px;">
+          <ol id="ls-weather-day" class="ls-weather">
+            <li class="item " :class="{ 'first': index==0 , 'second': index==1 }" style="width: 92px" v-for="(item, index) in forecast_24h">
+              <p class="day">{{forecast_1hs(1,1)}}</p>
+              <p class="date">{{item.time}}</p>
+              <div class="ct-daytime">
+                <p class="weather">{{item.day_weather}}</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/{{item.day_weather_code}}.png" alt="晴" title="晴" />
+                <p>{{item.max_degree}}℃</p>
+              </div>
+              <div class="ct-night">
+                <p>{{item.min_degree}}℃</p>
+                <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/{{item.night_weather_code}}.png" alt="阴" title="阴" />
+                <p class="weather">{{item.night_weather}}</p>
+              </div>
+              <p class="wind">{{item.night_wind_direction}} {{item.night_wind_power}}级</p>
+            </li>
+          </ol>
+          <!-- <ec-canvas id="chart-days" disable-scroll="true"></ec-canvas> -->
+        </scroll-view>
+      </div>
     </div>
     <!-- live -->
     <div id="ct-living-index">
       <!-- <div class="ct-page-ctrl">
-                                    <a href="javascript:;" id="btn-prev" class="btn"></a>
-                                    <a href="javascript:;" id="btn-next" class="btn"></a>
-                                  </div> -->
+                                            <a href="javascript:;" id="btn-prev" class="btn"></a>
+                                            <a href="javascript:;" id="btn-next" class="btn"></a>
+                                          </div> -->
       <h2 id="title">生活指数</h2>
       <div id="ct-pages">
         <div id="ct-content1">
@@ -1635,21 +1638,23 @@
     </div>
     <!-- area -->
     <!-- <van-popup show="{{ areaShow }}" closeable position="bottom" custom-style="height: 30%" @close="{{ areaShow = false }}">
-            <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
-          </van-popup> -->
+                    <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
+                  </van-popup> -->
   </div>
 </template>
 
 <script>
   import wepy from '@wepy/core'
   import forecast_1hs from '../utils/forecast_1hs';
+  import eventHub from '@/common/eventHub';
   wepy.page({
     onPullDownRefresh() {
-      this.getWeatherInfo(this.location ? "queryByLocation" : "")
+      this.getWeatherInfo(this.$app.$options.globalData.location ? "queryByLocation" : "")
     },
     data: {
       // areaShow: true,
       // areaList: [],
+      showSubscription:false,
       ad_info: {
         province: "",
         city: "",
@@ -1756,15 +1761,19 @@
         }
       },
       login() {
+        let that = this
         wx.login({
           success(res) {
-            console.log(res)
             if (res.code) {
               //发起网络请求
               wx.request({
                 url: 'https://weather.andyoung.top/wx/user/login',
                 data: {
                   code: res.code
+                },
+                success(res) {
+                  let openid = res.data.data.openid
+                  that.fetchSubscription(openid)
                 }
               })
             } else {
@@ -1845,17 +1854,46 @@
           }
         })
       },
-      handleSubscription(){
-
-      wx.requestSubscribeMessage({
-        tmplIds: ['_rUioMbGULV7wSmdk54VVzS5H0mUYyzOljoiFHsg1Y8','AiVhX_4ymoMvX4UtlRY89rh8klZyBM5ZqewjWp0vzrI'],
-        success(res) {
-          console.log(res)
-        },
-        fail() {
-          console.log(arguments)
-        }
-      })
+      handleSubscription() {
+        let that = this
+        wx.requestSubscribeMessage({
+          tmplIds: that.tmplIds,
+          success(res) {
+           
+            delete res.errMsg;
+            wx.request({
+              url:"https://weather.andyoung.top/wx/subscription/subscription",
+              method:"POST",
+              header: {openid: that.openid},
+              data:res,
+              success(res){
+                if(res.code===200 && res.data.code === 200){
+                  that.showSubscription = false
+                }
+              }
+            })
+          },
+          fail() {
+            console.log(arguments)
+          }
+        })
+      },
+      fetchSubscription(openid) {
+        let that = this
+        wx.request({
+          url: 'https://weather.andyoung.top/wx/subscription/list',
+          data: {
+            openid: openid
+          },
+          success(res) {
+            if (res.data.data.length !== 0) {
+              that.tmplIds = res.data.data;
+              that.showSubscription = true;
+            } else {
+              that.showSubscription = false;
+            }
+          }
+        })
       }
     },
     created() {
@@ -1875,12 +1913,8 @@
           }
         }
       })
-
     },
-    onReady() {
-      //   this.startChatInit()
-      
-    }
+    onReady() {}
   });
 </script>
 

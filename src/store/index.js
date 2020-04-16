@@ -2,20 +2,20 @@ import Vuex from '@wepy/x';
 
 export default new Vuex.Store({
   state: {
-
+      openid:""
   },
   mutations: {
-    // increment (state) {
-    //   state.counter++;
-    // },
+    SetOpenID (state) {
+      state.openid++;
+    },
     // decrement (state) {
     //   state.counter--;
     // }
   },
   actions: {
-    // increment ({ commit }) {
-    //   commit('increment');
-    // },
+    setOpenID ({ commit }) {
+      commit('SetOpenID');
+    },
     // decrement ({ commit }) {
     //   commit('decrement');
     // },
