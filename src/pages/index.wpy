@@ -1773,6 +1773,7 @@
                 },
                 success(res) {
                   let openid = res.data.data.openid
+                  that.openid = openid
                   that.fetchSubscription(openid)
                 }
               })
@@ -1867,7 +1868,8 @@
               header: {openid: that.openid},
               data:res,
               success(res){
-                if(res.code===200 && res.data.code === 200){
+                console.log(res)
+                if(res.statusCode===200 && res.data.code === 200){
                   that.showSubscription = false
                 }
               }
