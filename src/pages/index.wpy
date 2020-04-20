@@ -1527,9 +1527,9 @@
     <!-- live -->
     <div id="ct-living-index">
       <!-- <div class="ct-page-ctrl">
-                                                <a href="javascript:;" id="btn-prev" class="btn"></a>
-                                                <a href="javascript:;" id="btn-next" class="btn"></a>
-                                              </div> -->
+                                                    <a href="javascript:;" id="btn-prev" class="btn"></a>
+                                                    <a href="javascript:;" id="btn-next" class="btn"></a>
+                                                  </div> -->
       <h2 id="title">生活指数</h2>
       <div id="ct-pages">
         <div id="ct-content1">
@@ -1638,17 +1638,17 @@
     </div>
     <!-- area -->
     <!-- <van-popup show="{{ areaShow }}" closeable position="bottom" custom-style="height: 30%" @close="{{ areaShow = false }}">
-                        <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
-                      </van-popup> -->
+                            <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
+                          </van-popup> -->
   </div>
 </template>
 
 <script>
   import wepy from '@wepy/core'
   import {
-    forecast_1hs, forecast_1days
+    forecast_1hs,
+    forecast_1days
   } from '../utils/forecast_1hs';
-
   wepy.page({
     onPullDownRefresh() {
       this.getWeatherInfo(this.$app.$options.globalData.location ? "queryByLocation" : "")
@@ -1827,21 +1827,23 @@
             that.index = res.data.data.index
             var now = new Date();
             that.ct_hour = now.getHours(); //得到小时
-            
             for (let item in res.data.data.forecast_1h) {
               res.data.data.forecast_1h[item].hour_desc = forecast_1hs(that.ct_hour, item)
               res.data.data.forecast_1h[item].hour = (parseInt(that.ct_hour) + parseInt(item)) % 24
             }
-
             for (let item in res.data.data.forecast_24h) {
               res.data.data.forecast_24h[item].day_desc = forecast_1days(res.data.data.forecast_24h[item].time)
             }
-
             that.forecast_1h = res.data.data.forecast_1h
             that.ad_info.province = res.data.data.province
             that.ad_info.city = res.data.data.city
             that.ad_info.county = res.data.data.county
             that.forecast_24h = res.data.data.forecast_24h
+            wx.reportAnalytics('location', {
+              province: that.ad_info.province,
+              city: that.ad_info.city,
+              county: that.ad_info.county,
+            });
           }
         })
       },
@@ -1879,12 +1881,26 @@
                 console.log(res)
                 if (res.statusCode === 200 && res.data.code === 200) {
                   that.showSubscription = false
+                  wx.reportAnalytics('subscript_success', {
+                    net: 1,
+                  });
+                } else {
+                  wx.reportAnalytics('subscript_success', {
+                    net: 3,
+                  });
                 }
+              },
+              fail() {
+                wx.reportAnalytics('subscript_success', {
+                  net: 4,
+                });
               }
             })
           },
           fail() {
-            console.log(arguments)
+            wx.reportAnalytics('subscript_success', {
+              net: 2,
+            });
           }
         })
       },
@@ -1924,10 +1940,8 @@
           }
         }
       })
-    
     },
-    onReady() {
-    }
+    onReady() {}
   });
 </script>
 
