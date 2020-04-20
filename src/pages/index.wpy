@@ -1917,6 +1917,7 @@
             // that.getWeatherInfo("queryByLocation")
           } else if (res.authSetting["scope.userLocation"] === false) {
             that.getWeatherInfo()
+            that.getUserInfo()
           } else {
             that.getWeatherInfo()
             that.getLocation()
