@@ -16,9 +16,10 @@
   "author": "andyoung <1218853253@qq.com>",
   "license": "MIT",
   "dependencies": {
-    "@wepy/x": "^2.0.2",
     "@wepy/core": "^2.0.0-alpha.16",
-    "miniprogram-slide-view": "0.0.3"
+    "@wepy/x": "^2.0.2",
+    "miniprogram-slide-view": "0.0.3",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "@wepy/cli": "^2.0.0-alpha.28",

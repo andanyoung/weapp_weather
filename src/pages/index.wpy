@@ -417,7 +417,7 @@
   #ct-hours #ls-weather-hour .item {
     float: left;
     width: 40px;
-    margin-right: 60px;
+    margin-right: 18px;
     text-align: center;
     background-repeat: no-repeat;
     background-position: right;
@@ -1506,7 +1506,7 @@
         <scroll-view id="ct-weather" class="box-content" scroll-x="true" style="height: 372px;">
           <ol id="ls-weather-day" class="ls-weather">
             <li class="item " :class="{ 'first': index==0 , 'second': index==1 }" style="width: 92px" v-for="(item, index) in forecast_24h">
-              <p class="day">{{forecast_1hs(1,1)}}</p>
+              <p class="day">{{item.day_desc}}</p>
               <p class="date">{{item.time}}</p>
               <div class="ct-daytime">
                 <p class="weather">{{item.day_weather}}</p> <img class="icon" src="//mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/{{item.day_weather_code}}.png" alt="晴" title="晴" />
@@ -1527,9 +1527,9 @@
     <!-- live -->
     <div id="ct-living-index">
       <!-- <div class="ct-page-ctrl">
-                                            <a href="javascript:;" id="btn-prev" class="btn"></a>
-                                            <a href="javascript:;" id="btn-next" class="btn"></a>
-                                          </div> -->
+                                                <a href="javascript:;" id="btn-prev" class="btn"></a>
+                                                <a href="javascript:;" id="btn-next" class="btn"></a>
+                                              </div> -->
       <h2 id="title">生活指数</h2>
       <div id="ct-pages">
         <div id="ct-content1">
@@ -1638,15 +1638,17 @@
     </div>
     <!-- area -->
     <!-- <van-popup show="{{ areaShow }}" closeable position="bottom" custom-style="height: 30%" @close="{{ areaShow = false }}">
-                    <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
-                  </van-popup> -->
+                        <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
+                      </van-popup> -->
   </div>
 </template>
 
 <script>
   import wepy from '@wepy/core'
-  import forecast_1hs from '../utils/forecast_1hs';
-  import eventHub from '@/common/eventHub';
+  import {
+    forecast_1hs, forecast_1days
+  } from '../utils/forecast_1hs';
+
   wepy.page({
     onPullDownRefresh() {
       this.getWeatherInfo(this.$app.$options.globalData.location ? "queryByLocation" : "")
@@ -1654,7 +1656,7 @@
     data: {
       // areaShow: true,
       // areaList: [],
-      showSubscription:false,
+      showSubscription: false,
       ad_info: {
         province: "",
         city: "",
@@ -1825,11 +1827,16 @@
             that.index = res.data.data.index
             var now = new Date();
             that.ct_hour = now.getHours(); //得到小时
-            let forecast_1h = []
+            
             for (let item in res.data.data.forecast_1h) {
               res.data.data.forecast_1h[item].hour_desc = forecast_1hs(that.ct_hour, item)
               res.data.data.forecast_1h[item].hour = (parseInt(that.ct_hour) + parseInt(item)) % 24
             }
+
+            for (let item in res.data.data.forecast_24h) {
+              res.data.data.forecast_24h[item].day_desc = forecast_1days(res.data.data.forecast_24h[item].time)
+            }
+
             that.forecast_1h = res.data.data.forecast_1h
             that.ad_info.province = res.data.data.province
             that.ad_info.city = res.data.data.city
@@ -1860,16 +1867,17 @@
         wx.requestSubscribeMessage({
           tmplIds: that.tmplIds,
           success(res) {
-           
             delete res.errMsg;
             wx.request({
-              url:"https://weather.andyoung.top/wx/subscription/subscription",
-              method:"POST",
-              header: {openid: that.openid},
-              data:res,
-              success(res){
+              url: "https://weather.andyoung.top/wx/subscription/subscription",
+              method: "POST",
+              header: {
+                openid: that.openid
+              },
+              data: res,
+              success(res) {
                 console.log(res)
-                if(res.statusCode===200 && res.data.code === 200){
+                if (res.statusCode === 200 && res.data.code === 200) {
                   that.showSubscription = false
                 }
               }
@@ -1915,8 +1923,10 @@
           }
         }
       })
+    
     },
-    onReady() {}
+    onReady() {
+    }
   });
 </script>
 
