@@ -1527,9 +1527,9 @@
     <!-- live -->
     <div id="ct-living-index">
       <!-- <div class="ct-page-ctrl">
-                                                    <a href="javascript:;" id="btn-prev" class="btn"></a>
-                                                    <a href="javascript:;" id="btn-next" class="btn"></a>
-                                                  </div> -->
+                                                      <a href="javascript:;" id="btn-prev" class="btn"></a>
+                                                      <a href="javascript:;" id="btn-next" class="btn"></a>
+                                                    </div> -->
       <h2 id="title">生活指数</h2>
       <div id="ct-pages">
         <div id="ct-content1">
@@ -1638,8 +1638,8 @@
     </div>
     <!-- area -->
     <!-- <van-popup show="{{ areaShow }}" closeable position="bottom" custom-style="height: 30%" @close="{{ areaShow = false }}">
-                            <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
-                          </van-popup> -->
+                              <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
+                            </van-popup> -->
   </div>
 </template>
 
@@ -1923,6 +1923,7 @@
       }
     },
     created() {
+      
       this.login();
       //  this.getUserInfo()
       let that = this
@@ -1939,6 +1940,10 @@
             that.getLocation()
           }
         }
+      })
+
+      wx.showShareMenu({
+        withShareTicket: true
       })
     },
     onReady() {}
