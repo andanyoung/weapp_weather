@@ -1527,9 +1527,9 @@
     <!-- live -->
     <div id="ct-living-index">
       <!-- <div class="ct-page-ctrl">
-                                                      <a href="javascript:;" id="btn-prev" class="btn"></a>
-                                                      <a href="javascript:;" id="btn-next" class="btn"></a>
-                                                    </div> -->
+                                                            <a href="javascript:;" id="btn-prev" class="btn"></a>
+                                                            <a href="javascript:;" id="btn-next" class="btn"></a>
+                                                          </div> -->
       <h2 id="title">生活指数</h2>
       <div id="ct-pages">
         <div id="ct-content1">
@@ -1638,8 +1638,8 @@
     </div>
     <!-- area -->
     <!-- <van-popup show="{{ areaShow }}" closeable position="bottom" custom-style="height: 30%" @close="{{ areaShow = false }}">
-                              <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
-                            </van-popup> -->
+                                    <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
+                                  </van-popup> -->
   </div>
 </template>
 
@@ -1776,6 +1776,9 @@
                 success(res) {
                   let openid = res.data.data.openid
                   that.openid = openid
+                  that.header = {
+                    openid: openid
+                  }
                   that.fetchSubscription(openid)
                 }
               })
@@ -1788,7 +1791,6 @@
       getUserInfo() {
         wx.getUserInfo({
           success: function(res) {
-            console.log(res)
             var userInfo = res.userInfo
             var nickName = userInfo.nickName
             var avatarUrl = userInfo.avatarUrl
@@ -1811,9 +1813,22 @@
         if (queryType === 'queryByLocation') {
           data['location'] = this.$app.$options.globalData.location
         }
+        if (this.ad_info.city) {
+          data.city = this.ad_info.city
+          data.county = this.ad_info.county
+          data.province = this.ad_info.province
+        }
+        if (this.openid) {
+          let header = {
+            openid: this.openid
+          }
+        } else {
+          let header = {}
+        }
         let that = this;
         wx.request({
           url: 'https://weather.andyoung.top/weather/' + queryType,
+          header: that.header,
           data: data,
           success: function(res) {
             // 隐藏导航栏加载框
@@ -1873,17 +1888,21 @@
             wx.request({
               url: "https://weather.andyoung.top/wx/subscription/subscription",
               method: "POST",
-              header: {
-                openid: that.openid
-              },
+              header: that.header,
               data: res,
               success(res) {
                 console.log(res)
                 if (res.statusCode === 200 && res.data.code === 200) {
-                  that.showSubscription = false
-                  wx.reportAnalytics('subscript_success', {
-                    net: 1,
-                  });
+                  if (res.data.data) {
+                    that.showSubscription = false
+                    wx.reportAnalytics('subscript_success', {
+                      net: 1,
+                    });
+                  } else {
+                    wx.reportAnalytics('subscript_success', {
+                      net: 5,
+                    });
+                  }
                 } else {
                   wx.reportAnalytics('subscript_success', {
                     net: 3,
@@ -1908,6 +1927,7 @@
         let that = this
         wx.request({
           url: 'https://weather.andyoung.top/wx/subscription/list',
+          header: that.header,
           data: {
             openid: openid
           },
@@ -1923,8 +1943,9 @@
       }
     },
     created() {
-      
+      this.header = {}
       this.login();
+      this.getWeatherInfo()
       //  this.getUserInfo()
       let that = this
       wx.getSetting({
@@ -1941,7 +1962,6 @@
           }
         }
       })
-
       wx.showShareMenu({
         withShareTicket: true
       })
