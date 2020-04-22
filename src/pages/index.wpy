@@ -4,7 +4,7 @@
     background-color: #00a2ff;
   }
   #ct-current {
-    background-image: url(https://weather.andyoung.top/bg_20200409005007.png);
+    background-image: url(http://c7dn.andyoung.top/bg_20200409005007.png);
     background-size: cover;
     height: 360px;
     width: 100%;
