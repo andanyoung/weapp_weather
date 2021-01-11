@@ -342,7 +342,8 @@
     color: #fff;
     line-height: 20px;
     height: 20px;
-    display: inline-block
+    display: inline-block;
+    width: 90%;
   }
   #ct-current #ct-tips #txt-tips:before {
     content: '';
@@ -1474,9 +1475,8 @@
           <p class="item"><i class="icon" id="icon-humidity"></i> <span class="txt" id="txt-humidity">湿度  {{ observe.humidity }}%</span></p>
           <p class="item"><i class="icon" id="icon-kPa"></i> <span class="txt" id="txt-kPa">气压  {{ observe.pressure }}hPa</span></p>
         </div>
-        <div id="ct-tips">
-          <p id="txt-tips">{{ observeTips }}</p>
-          <view href="javascript:;" id="btn-tip-switch" style="display: inline-block;" v-on:tap="observeTipsChangeHandler">
+        <div id="ct-tips"  v-on:tap="observeTipsChangeHandler">
+          <p id="txt-tips">{{ observeTips }}<view href="javascript:;" id="btn-tip-switch" style="display: inline-block;"></p>
         </div>
         <div id="ct-location">{{adInfo}}
         </div>
@@ -1645,6 +1645,7 @@
 
 <script>
   import wepy from '@wepy/core'
+  const jinrishici = require('../utils/jinrishici.js')
   import {
     forecast_1hs,
     forecast_1days
@@ -1756,11 +1757,9 @@
       //   return chart;
       // },
       observeTipsChangeHandler() {
-        if (this.observeTips === this.tips.observe[0]) {
-          this.observeTips = this.tips.observe[1]
-        } else {
-          this.observeTips = this.tips.observe[0]
-        }
+        jinrishici.load(result => {
+           this.observeTips =  result.data.content
+        })
       },
       login() {
         let that = this
@@ -1838,7 +1837,7 @@
             that.observe = res.data.data.observe
             that.air = res.data.data.air
             that.tips = res.data.data.tips
-            that.observeTips = res.data.data.tips.observe[0]
+           // that.observeTips = res.data.data.tips.observe[0]
             that.index = res.data.data.index
             var now = new Date();
             that.ct_hour = now.getHours(); //得到小时
@@ -1861,6 +1860,8 @@
             });
           }
         })
+
+        this.observeTipsChangeHandler()
       },
       getLocation() {
         //定位信息
@@ -1944,7 +1945,7 @@
     },
     created() {
       this.header = {}
-      this.login();
+     // this.login();
       this.getWeatherInfo()
       //  this.getUserInfo()
       let that = this
