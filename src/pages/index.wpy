@@ -1967,7 +1967,7 @@ wepy.page({
         },
       });
 
-      this.observeTipsChangeHandler();
+      // this.observeTipsChangeHandler();
     },
     getLocation() {
       // 定位信息
@@ -1983,6 +1983,13 @@ wepy.page({
           const accuracy = res.accuracy;
           that.$app.$options.globalData.location = latitude + ',' + longitude;
           that.getWeatherInfoByLocation();
+        },
+        fail(error) {
+          console.error(
+            'getLocation',
+            error,
+            that.$app.$options.globalData.location
+          );
         },
       });
     },

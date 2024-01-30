@@ -1,40 +1,38 @@
 <style lang="less">
-  .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-  }
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
 </style>
 
 <script>
-  import wepy from '@wepy/core';
-  import eventHub from './common/eventHub';
-  import vuex from '@wepy/x';
-  wepy.use(vuex);
-  wepy.app({
-    hooks: {
-      // App 级别 hook，对整个 App 生效
-      // 同时存在 Page hook 和 App hook 时，优先执行 Page hook，返回值再交由 App hook 处
-      'before-setData': function(dirty) {
-        return dirty;
-      }
+import wepy from '@wepy/core';
+import eventHub from './common/eventHub';
+import vuex from '@wepy/x';
+wepy.use(vuex);
+wepy.app({
+  hooks: {
+    // App 级别 hook，对整个 App 生效
+    // 同时存在 Page hook 和 App hook 时，优先执行 Page hook，返回值再交由 App hook 处
+    'before-setData': function (dirty) {
+      return dirty;
     },
-    globalData: {
-      userInfo: null,
-      location: ''
+  },
+  globalData: {
+    userInfo: null,
+    location: '',
+  },
+  onLaunch() {},
+  methods: {
+    getLocaltion() {
+      return this.globalData.location;
     },
-    onLaunch() {
-
-    },
-    methods: {
-      getLocaltion(){
-        return this.globalData.location;
-      }
-      }
-  });
+  },
+});
 </script>
 
 <config>
@@ -52,6 +50,7 @@
       "scope.userLocation": {
         "desc": "你的位置信息将用于小程序获取天气城市定位"
       }
-    }
+    },
+    requiredPrivateInfos: ['getLocation']
 }
 </config>
