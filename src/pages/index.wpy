@@ -1420,6 +1420,9 @@ input:-moz-placeholder {
 input::-moz-placeholder {
   font-family: 'Microsoft Yahei';
 }
+.container {
+  padding-bottom: 32px;
+}
 /*  |xGv00|cd4f17932c14efbe79ab95a1692202ca */
 </style>
 
@@ -1720,6 +1723,7 @@ input::-moz-placeholder {
         </div>
       </div>
     </div>
+    <ad unit-id="adunit-e802d0f8c8e982fa" ad-type="video" ad-theme="white"></ad>
     <!-- area -->
     <!-- <van-popup show="{{ areaShow }}" closeable position="bottom" custom-style="height: 30%" @close="{{ areaShow = false }}">
                                     <van-area area-list="{{ areaList }}" title="标题" columns-placeholder="{{ ['请选择', '请选择', '请选择'] }}" confirm-button-text="{{'qw'}}" />
@@ -2059,7 +2063,7 @@ wepy.page({
   created() {
     this.header = {};
     // this.login();
-    this.getWeatherInfo();
+    // this.getWeatherInfo();
     //  this.getUserInfo()
     let that = this;
     wx.getSetting({
@@ -2069,7 +2073,7 @@ wepy.page({
           // that.getWeatherInfo("queryByLocation")
         } else if (res.authSetting['scope.userLocation'] === false) {
           that.getWeatherInfo();
-          that.getUserInfo();
+          // that.getUserInfo();
         } else {
           that.getWeatherInfo();
           that.getLocation();
