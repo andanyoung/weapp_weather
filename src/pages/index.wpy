@@ -1751,7 +1751,7 @@ wepy.page({
       county: '',
     },
     ct_hour: 0,
-    observeTips: '现在的温度比较凉爽~',
+    observeTips: '',
     observe: {
       precipitation: '0.0',
       update_time: '000000000000',
