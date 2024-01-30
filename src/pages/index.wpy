@@ -1941,7 +1941,10 @@ wepy.page({
           that.observe = res.data.data.observe;
           that.air = res.data.data.air;
           that.tips = res.data.data.tips;
-          // that.observeTips = res.data.data.tips.observe[0]
+          if (res.data.data.tips && res.data.data.tips.observe.length > 0) {
+            that.observeTips = res.data.data.tips.observe[0];
+          }
+
           that.index = res.data.data.index;
           var now = new Date();
           that.ct_hour = now.getHours(); // 得到小时
