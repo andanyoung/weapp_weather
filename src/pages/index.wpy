@@ -1865,45 +1865,45 @@ wepy.page({
     },
     login() {
       let that = this;
-      wx.login({
-        success(res) {
-          if (res.code) {
-            // 发起网络请求
-            wx.request({
-              url: 'https://weather.zhanzhi.co/wx/user/login',
-              data: {
-                code: res.code,
-              },
-              success(res) {
-                let openid = res.data.data.openid;
-                that.openid = openid;
-                that.header = {
-                  openid: openid,
-                };
-                that.fetchSubscription(openid);
-              },
-            });
-          } else {
-            console.log('登录失败！' + res.errMsg);
-          }
-        },
-      });
+      // wx.login({
+      //   success(res) {
+      //     if (res.code) {
+      //       // 发起网络请求
+      //       wx.request({
+      //         url: 'https://weather.zhanzhi.co/wx/user/login',
+      //         data: {
+      //           code: res.code,
+      //         },
+      //         success(res) {
+      //           let openid = res.data.data.openid;
+      //           that.openid = openid;
+      //           that.header = {
+      //             openid: openid,
+      //           };
+      //           that.fetchSubscription(openid);
+      //         },
+      //       });
+      //     } else {
+      //       console.log('登录失败！' + res.errMsg);
+      //     }
+      //   },
+      // });
     },
     getUserInfo() {
-      wx.getUserInfo({
-        success: function (res) {
-          var userInfo = res.userInfo;
-          var nickName = userInfo.nickName;
-          var avatarUrl = userInfo.avatarUrl;
-          var gender = userInfo.gender; // 性别 0：未知、1：男、2：女
-          var province = userInfo.province;
-          var city = userInfo.city;
-          var country = userInfo.country;
-        },
-        fail(error) {
-          console.log(error);
-        },
-      });
+      // wx.getUserInfo({
+      //   success: function (res) {
+      //     var userInfo = res.userInfo;
+      //     var nickName = userInfo.nickName;
+      //     var avatarUrl = userInfo.avatarUrl;
+      //     var gender = userInfo.gender; // 性别 0：未知、1：男、2：女
+      //     var province = userInfo.province;
+      //     var city = userInfo.city;
+      //     var country = userInfo.country;
+      //   },
+      //   fail(error) {
+      //     console.log(error);
+      //   },
+      // });
     },
     getWeatherInfoByLocation() {
       this.getWeatherInfo(
