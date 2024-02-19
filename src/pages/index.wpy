@@ -1915,19 +1915,12 @@ wepy.page({
       let data = {};
       if (queryType === 'queryByLocation') {
         data['location'] = this.$app.$options.globalData.location;
-      }
-      if (this.ad_info.city) {
+      } else if (this.ad_info.city) {
         data.city = this.ad_info.city;
         data.county = this.ad_info.county;
         data.province = this.ad_info.province;
       }
-      if (this.openid) {
-        let header = {
-          openid: this.openid,
-        };
-      } else {
-        let header = {};
-      }
+
       let that = this;
       wx.request({
         url: 'https://weather.zhanzhi.co/weather/' + queryType,
@@ -2067,7 +2060,7 @@ wepy.page({
   created() {
     this.header = {};
     // this.login();
-    // this.getWeatherInfo();
+    this.getWeatherInfo();
     //  this.getUserInfo()
     let that = this;
     wx.getSetting({
